@@ -14,8 +14,6 @@ public:
 protected:
 	static int const GAMESIZE = 100; // Amount of Pawns in the Game
 	Pawn * _PawnArray[GAMESIZE];
-	Controller * _PlayerController;
-	Controller * _ControllerArray[GAMESIZE];
 	int _pawnSize[GAMESIZE];
 	_2D_Point _pawnCentre[GAMESIZE];
 	int _r, _g, _b;

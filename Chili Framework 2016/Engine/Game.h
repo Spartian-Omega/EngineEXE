@@ -75,6 +75,7 @@ protected:
 	/*  User Variables              */
 
 	Controller * _PlayerController;
+	Controller * _ControllerArray[GameState::GAMESIZE];
 
 	/********************************/
 };

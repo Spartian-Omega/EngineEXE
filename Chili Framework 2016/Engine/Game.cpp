@@ -35,7 +35,7 @@ Game::Game(MainWindow& wnd)
 	_PlayerController = new APlayerController(_Player, wnd);
 	_Player->AssignController(_PlayerController);
 	_GameState._PawnArray[0] = _Player;
-	_GameState._ControllerArray[0] = _PlayerController;
+	_ControllerArray[0] = _PlayerController;
 	//
 
 	///test
@@ -82,9 +82,9 @@ void Game::Go()
 		for (int i = 1; i <= _GameState.GAMESIZE; i++) {
 			if (_GameState._PawnArray[i] == NULL) {
 				_GameState._PawnArray[i] = new Pawn(rand() % 800, rand() % 600, rand() % 10 + 4);
-				_GameState._ControllerArray[i] = new ANPCController(_GameState._PawnArray[i]);
-				_GameState._PawnArray[i]->AssignController(_GameState._ControllerArray[i]);
-				_GameState._ControllerArray[i]->SetTarget(_GameState._PawnArray[0]);
+				_ControllerArray[i] = new ANPCController(_GameState._PawnArray[i]);
+				_GameState._PawnArray[i]->AssignController(_ControllerArray[i]);
+				_ControllerArray[i]->SetTarget(_GameState._PawnArray[0]);
 			}
 		}
 	///
@@ -122,12 +122,12 @@ void Game::UpdateModel()
 			if (_GameState._PawnArray[i]->_destroy) {
 				delete _GameState._PawnArray[i];
 				_GameState._PawnArray[i] = nullptr;
-				delete _GameState._ControllerArray[i];
-				_GameState._ControllerArray[i] = nullptr;
+				delete _ControllerArray[i];
+				_ControllerArray[i] = nullptr;
 			}
 		}
-		if (_GameState._ControllerArray[i] != NULL) {
-			_GameState._ControllerArray[i]->ControllerGo(_frameInterval);
+		if (_ControllerArray[i] != NULL) {
+			_ControllerArray[i]->ControllerGo(_frameInterval);
 		}
 		/// Move below To drawing thread
 		if (_GameState._PawnArray[i] != NULL) {
@@ -141,12 +141,20 @@ void Game::UpdateModel()
 
 void Game::PushGameState()
 {
-	GameState Buffer = _GameState;
+	GameState Buffer;
+	for (int i = 0; i < GameState::GAMESIZE; i++) {
+		Buffer._PawnArray[i] = _GameState._PawnArray[i];
+		Buffer._pawnSize[i] = _GameState._pawnSize[i];
+		Buffer._pawnCentre[i] = _GameState._pawnCentre[i];
+	}
+	Buffer._r = _GameState._r;
+	Buffer._g = _GameState._g;
+	Buffer._b = _GameState._b;
 }
 
 void Game::ComposeFrame()
 {
-	//DrawCollisionField
+	///DrawCollisionField
 	DrawCollisionField();
 
 	for (int i = 1; i < _GameState.GAMESIZE; i++) {
