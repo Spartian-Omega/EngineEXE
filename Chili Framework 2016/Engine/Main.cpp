@@ -23,27 +23,55 @@
 #include <Windows.h>
 ///
 
+#include <string>
+#include <sstream>
 
 #include "MainWindow.h"
 #include "Game.h"
 #include "ChiliException.h"
 
+typedef struct ThreadData {
+	Game * GameAddress;
+}THREADDATA , *PTHREADDATA;
+
+DWORD WINAPI GRAPHICSTHREAD(__in LPVOID lpParameter)
+{
+	PTHREADDATA pGraphicsThreadData;
+	pGraphicsThreadData = (PTHREADDATA)lpParameter;
+
+	std::wstring _debug_wstream = std::to_wstring(GetCurrentThreadId());
+	OutputDebugString(L"Thread ID = ");
+	OutputDebugString(_debug_wstream.c_str());
+	OutputDebugString(L"\n");
+
+	//wait for graphics
+	while (pGraphicsThreadData->GameAddress->DRAW){
+		pGraphicsThreadData->GameAddress->PushFrame();
+}
+	return 3;
+}
+
 int WINAPI wWinMain( HINSTANCE hInst,HINSTANCE,LPWSTR pArgs,INT )
 {
+	//Graphics Thread
+	HANDLE GRAPHICSHANDLE;
+	DWORD GRAPHICSTHREADID;
+	//
 	try
 	{
 		MainWindow wnd( hInst,pArgs );		
 		try
 		{
+			//Graphics Thread
 			Game theGame( wnd );
+			PTHREADDATA GRAPHICSTHREADDATA = new ThreadData;
+			GRAPHICSTHREADDATA->GameAddress = & theGame;
+			GRAPHICSHANDLE = CreateThread(0, 0, GRAPHICSTHREAD, GRAPHICSTHREADDATA, 0, &GRAPHICSTHREADID);
+			//
 			while( wnd.ProcessMessage() )
 			{
-				/// Game thread.
+				//Game Logic Loop
 				theGame.Go();
-				
-				///
-				// Graphics thread.
-			
 				//
 			}
 		}

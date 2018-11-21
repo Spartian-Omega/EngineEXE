@@ -42,6 +42,7 @@ class Game
 public:
 	Game(class MainWindow& wnd);
 	Game(const Game&) = delete;
+	~Game();
 	Game& operator=(const Game&) = delete;
 	void Go();
 private:
@@ -49,8 +50,10 @@ private:
 	void UpdateModel();
 	/// Super Special Function
 	void PushGameState();
+public:
+	void PushFrame();
 	///
-
+private:
 	/********************************/
 	/*  User Functions              */
 	void DrawBox(const int xcentre, const int ycentre, const int size, const int r, const int g, const int b);
@@ -59,6 +62,9 @@ private:
 	bool CheckForScreenBoundaryTouch(const int scentre, const int size, const int sboundary);
 	void DrawCollisionField();
 	/********************************/
+public:
+	bool DRAW;
+
 private:
 	MainWindow& wnd;
 	Graphics gfx;
@@ -70,6 +76,7 @@ private:
 	std::wstring _debug_wstream;
 
 	GameState _GameState;
+	GameState Buffer;
 protected:
 	/********************************/
 	/*  User Variables              */

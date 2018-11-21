@@ -59,6 +59,12 @@ Game::Game(MainWindow& wnd)
 	
 	_GameState._r = 255; _GameState._g = 255; _GameState._b = 255;
 	_frameInterval = 0;
+	DRAW = true;
+}
+
+Game::~Game()
+{
+	DRAW = false;
 }
 
 void Game::Go()
@@ -67,7 +73,7 @@ void Game::Go()
 	auto start = std::chrono::system_clock::now();
 
 	///
-	gfx.BeginFrame();
+	//gfx.BeginFrame();
 	/// Test Spawner
 	//if (_PawnArray[1] == NULL && _PawnArray[2] == NULL) {
 	//	for (int i = 1; i <= 2; i++) {
@@ -97,7 +103,7 @@ void Game::Go()
 
 	ComposeFrame();
 	_CollisionField->EmptyCollisionField();
-	gfx.EndFrame();
+	//gfx.EndFrame();
 	///
 
 	auto end = std::chrono::system_clock::now();
@@ -141,7 +147,6 @@ void Game::UpdateModel()
 
 void Game::PushGameState()
 {
-	GameState Buffer;
 	for (int i = 0; i < GameState::GAMESIZE; i++) {
 		Buffer._PawnArray[i] = _GameState._PawnArray[i];
 		Buffer._pawnSize[i] = _GameState._pawnSize[i];
@@ -152,10 +157,24 @@ void Game::PushGameState()
 	Buffer._b = _GameState._b;
 }
 
+void Game::PushFrame()
+{
+	gfx.BeginFrame();
+	//DrawCollisionField();
+
+	for (int i = 1; i < Buffer.GAMESIZE; i++) {
+		if (Buffer._PawnArray[i] != NULL) {
+			DrawCrosshair(Buffer._pawnCentre[i].x, Buffer._pawnCentre[i].y, Buffer._pawnSize[i], 127, 0, 255);
+		}
+	}
+	DrawBox(Buffer._pawnCentre[0].x, Buffer._pawnCentre[0].y, Buffer._pawnSize[0], Buffer._r, Buffer._g, Buffer._b);
+	gfx.EndFrame();
+}
+
 void Game::ComposeFrame()
 {
 	///DrawCollisionField
-	DrawCollisionField();
+/*	DrawCollisionField();
 
 	for (int i = 1; i < _GameState.GAMESIZE; i++) {
 		if (_GameState._PawnArray[i] != NULL) {
@@ -163,6 +182,7 @@ void Game::ComposeFrame()
 		}
 	}
 	DrawBox(_GameState._pawnCentre[0].x, _GameState._pawnCentre[0].y, _GameState._pawnSize[0], _GameState._r, _GameState._g, _GameState._b);
+*/
 }
 
 void Game::DrawBox(int xcentre, int ycentre, int size, int r, int g, int b)
