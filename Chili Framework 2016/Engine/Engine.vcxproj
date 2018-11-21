@@ -145,6 +145,7 @@
     <ClInclude Include="Controller.h" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameState.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="HitBox.h" />
     <ClInclude Include="Keyboard.h" />
@@ -161,6 +162,7 @@
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="DXErr.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="HitBox.cpp" />
     <ClCompile Include="Keyboard.cpp" />

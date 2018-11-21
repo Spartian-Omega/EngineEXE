@@ -26,13 +26,16 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include "Controller.h"
+
+#include "GameState.h"
+
 #include "APlayerController.h"
 #include "ANPCController.h"
 #include "Pawn.h"
 #include "_2D_Vector.h"
 #include "CollisionField.h"
 
-#define GAMESIZE 100 // amount of AI pawns
+
 
 class Game
 {
@@ -44,6 +47,10 @@ public:
 private:
 	void ComposeFrame();
 	void UpdateModel();
+	/// Super Special Function
+	void PushGameState();
+	///
+
 	/********************************/
 	/*  User Functions              */
 	void DrawBox(const int xcentre, const int ycentre, const int size, const int r, const int g, const int b);
@@ -56,19 +63,18 @@ private:
 	MainWindow& wnd;
 	Graphics gfx;
 
-	/********************************/
-	/*  User Variables              */
 	Pawn * _Player;
-	Pawn * _PawnArray[GAMESIZE];
-	Controller * _PlayerController;
-	Controller * _ControllerArray[GAMESIZE];
 	CollisionField *_CollisionField;
 
-	std::wstring _debug_wstream;
-	int _pawnSize[GAMESIZE];
-	_2D_Point _pawnCentre[GAMESIZE];
-	int _r, _g, _b;
 	double _frameInterval;
+	std::wstring _debug_wstream;
+
+	GameState _GameState;
+protected:
+	/********************************/
+	/*  User Variables              */
+
+	Controller * _PlayerController;
 
 	/********************************/
 };

@@ -18,6 +18,12 @@
 *	You should have received a copy of the GNU General Public License					  *
 *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
 ******************************************************************************************/
+
+/// Multi-Threading Windows API
+#include <Windows.h>
+///
+
+
 #include "MainWindow.h"
 #include "Game.h"
 #include "ChiliException.h"
@@ -32,7 +38,13 @@ int WINAPI wWinMain( HINSTANCE hInst,HINSTANCE,LPWSTR pArgs,INT )
 			Game theGame( wnd );
 			while( wnd.ProcessMessage() )
 			{
+				/// Game thread.
 				theGame.Go();
+				
+				///
+				// Graphics thread.
+			
+				//
 			}
 		}
 		catch( const ChiliException& e )

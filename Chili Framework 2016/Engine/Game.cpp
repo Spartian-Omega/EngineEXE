@@ -23,17 +23,19 @@
 #include "MainWindow.h"
 #include "Game.h"
 
-Game::Game( MainWindow& wnd )
+
+Game::Game(MainWindow& wnd)
 	:
-	wnd( wnd ),
-	gfx( wnd )
+	wnd(wnd),
+	gfx(wnd),
+	_GameState()
 {
 	// Initialise Player
 	_Player = new Pawn(400, 300, 20);
 	_PlayerController = new APlayerController(_Player, wnd);
 	_Player->AssignController(_PlayerController);
-	_PawnArray[0] = _Player;
-	_ControllerArray[0] = _PlayerController;
+	_GameState._PawnArray[0] = _Player;
+	_GameState._ControllerArray[0] = _PlayerController;
 	//
 
 	///test
@@ -55,7 +57,7 @@ Game::Game( MainWindow& wnd )
 	_CollisionField = new CollisionField();
 	//
 	
-	_r = 255; _g = 255; _b = 255;
+	_GameState._r = 255; _GameState._g = 255; _GameState._b = 255;
 	_frameInterval = 0;
 }
 
@@ -77,17 +79,22 @@ void Game::Go()
 	//}
 	///
 	/// Test Spawner 2	
-		for (int i = 1; i <= GAMESIZE; i++) {
-			if (_PawnArray[i] == NULL) {
-			_PawnArray[i] = new Pawn(rand() % 800, rand() % 600, rand() % 10 + 4);
-			_ControllerArray[i] = new ANPCController(_PawnArray[i]);
-			_PawnArray[i]->AssignController(_ControllerArray[i]);
-			_ControllerArray[i]->SetTarget(_PawnArray[0]);
+		for (int i = 1; i <= _GameState.GAMESIZE; i++) {
+			if (_GameState._PawnArray[i] == NULL) {
+				_GameState._PawnArray[i] = new Pawn(rand() % 800, rand() % 600, rand() % 10 + 4);
+				_GameState._ControllerArray[i] = new ANPCController(_GameState._PawnArray[i]);
+				_GameState._PawnArray[i]->AssignController(_GameState._ControllerArray[i]);
+				_GameState._ControllerArray[i]->SetTarget(_GameState._PawnArray[0]);
 			}
 		}
 	///
 
 	UpdateModel();
+
+	/// Push Game State to Buffer
+	PushGameState();
+	///
+
 	ComposeFrame();
 	_CollisionField->EmptyCollisionField();
 	gfx.EndFrame();
@@ -110,24 +117,31 @@ void Game::Go()
 void Game::UpdateModel()
 {	
 	//_PlayerController->ControllerGo(_frameInterval);
-	for (int i = 0; i < GAMESIZE; i++) {
-		if (_PawnArray[i] != NULL) {
-			if (_PawnArray[i]->_destroy) {
-				delete _PawnArray[i];
-				_PawnArray[i] = nullptr;
-				delete _ControllerArray[i];
-				_ControllerArray[i] = nullptr;				
+	for (int i = 0; i < _GameState.GAMESIZE; i++) {
+		if (_GameState._PawnArray[i] != NULL) {
+			if (_GameState._PawnArray[i]->_destroy) {
+				delete _GameState._PawnArray[i];
+				_GameState._PawnArray[i] = nullptr;
+				delete _GameState._ControllerArray[i];
+				_GameState._ControllerArray[i] = nullptr;
 			}
 		}
-		if (_ControllerArray[i] != NULL) {
-			_ControllerArray[i]->ControllerGo(_frameInterval);
+		if (_GameState._ControllerArray[i] != NULL) {
+			_GameState._ControllerArray[i]->ControllerGo(_frameInterval);
 		}
-		if (_PawnArray[i] != NULL) {
-			_pawnCentre[i] = _PawnArray[i]->QueryPosition();
-			_pawnSize[i] = _PawnArray[i]->QuerySize();
-			_CollisionField->UpdateCollisionField(_PawnArray[i]);
+		/// Move below To drawing thread
+		if (_GameState._PawnArray[i] != NULL) {
+			_GameState._pawnCentre[i] = _GameState._PawnArray[i]->QueryPosition();
+			_GameState._pawnSize[i] = _GameState._PawnArray[i]->QuerySize();
+			_CollisionField->UpdateCollisionField(_GameState._PawnArray[i]);
 		}
+		///
 	}
+}
+
+void Game::PushGameState()
+{
+	GameState Buffer = _GameState;
 }
 
 void Game::ComposeFrame()
@@ -135,12 +149,12 @@ void Game::ComposeFrame()
 	//DrawCollisionField
 	DrawCollisionField();
 
-	for (int i = 1; i < GAMESIZE; i++) {
-		if (_PawnArray[i] != NULL) {
-			DrawCrosshair(_pawnCentre[i].x, _pawnCentre[i].y, _pawnSize[i], 127, 0, 255);
+	for (int i = 1; i < _GameState.GAMESIZE; i++) {
+		if (_GameState._PawnArray[i] != NULL) {
+			DrawCrosshair(_GameState._pawnCentre[i].x, _GameState._pawnCentre[i].y, _GameState._pawnSize[i], 127, 0, 255);
 		}
 	}
-	DrawBox(_pawnCentre[0].x, _pawnCentre[0].y, _pawnSize[0], _r, _g, _b);
+	DrawBox(_GameState._pawnCentre[0].x, _GameState._pawnCentre[0].y, _GameState._pawnSize[0], _GameState._r, _GameState._g, _GameState._b);
 }
 
 void Game::DrawBox(int xcentre, int ycentre, int size, int r, int g, int b)
