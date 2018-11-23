@@ -64,7 +64,7 @@ private:
 	/********************************/
 public:
 	bool DRAW;
-
+	bool WAIT;
 private:
 	MainWindow& wnd;
 	Graphics gfx;

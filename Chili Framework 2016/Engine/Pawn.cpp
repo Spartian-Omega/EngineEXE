@@ -159,7 +159,7 @@ void Pawn::collisionDetected(Pawn * collidingPawn)
 	//OutputDebugString(L"Hit! \n");
 	if(MyController->GetTarget() == collidingPawn)
 	{
-		OutputDebugString(L"Hit Target! \n");
+	//	OutputDebugString(L"Hit Target! \n"); // This will cause a stutter with large amounts of pawns.
 		_destroy = true;
 	}
 }

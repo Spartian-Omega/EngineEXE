@@ -19,5 +19,6 @@ public:
 
 private:
 	Pawn * _pawnArray[600][800];
+	Pawn * _oldArray[600][800];
 };
 

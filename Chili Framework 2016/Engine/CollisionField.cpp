@@ -51,16 +51,15 @@ void CollisionField::UpdateCollisionField(class Pawn * pawn)
 			}
 			else {
 				_pawnArray[edgeBottom - i][edgeRight] = pawn;
-			}
-		
+			}		
 		}
-
 }
 
 void CollisionField::EmptyCollisionField()
 {
 	for (int k = 0; k <= 599; k++) {
 		for (int i = 0; i <= 799; i++) {
+			_oldArray[k][i] = _pawnArray[k][i];
 				_pawnArray[k][i] = NULL;
 		}
 	}
@@ -70,7 +69,7 @@ void CollisionField::DrawField( MainWindow & wnd , Graphics & gfx)
 {
 	for (int k = 0; k <= 599; k++) {
 		for (int i = 0; i <= 799; i++) {
-			if (_pawnArray[k][i] == NULL) {
+			if (_oldArray[k][i] == NULL) {
 
 			}
 			else {
