@@ -122,6 +122,11 @@ void Pawn::MoveVertical(int direction, double dt)
 	}
 }
 
+void Pawn::SetColour(Color c)
+{
+	_c = c;
+}
+
 void Pawn::UpdatePawn()
 {
 	_path.p1.x = _path.p2.x;
@@ -152,6 +157,11 @@ void Pawn::UpdatePawn()
 int Pawn::QuerySize()
 {
 	return _size;
+}
+
+Color Pawn::QueryColour()
+{
+	return _c;
 }
 
 void Pawn::collisionDetected(Pawn * collidingPawn)

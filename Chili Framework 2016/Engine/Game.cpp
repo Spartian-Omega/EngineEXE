@@ -34,30 +34,15 @@ Game::Game(MainWindow& wnd)
 	_Player = new Pawn(400, 300, 20);
 	_PlayerController = new APlayerController(_Player, wnd);
 	_Player->AssignController(_PlayerController);
-	_GameState._PawnArray[0] = _Player;
+	_GameState._pawnArray[0] = _Player;
 	_ControllerArray[0] = _PlayerController;
 	//
-
-	///test
-	//_PawnArray[1] = new Pawn(500, 300, 10);
-	//_ControllerArray[1] = new ANPCController(_PawnArray[1]);
-	//_PawnArray[1]->AssignController(_ControllerArray[1]);
-	//_ControllerArray[1]->SetTarget(_PawnArray[0]);
-	///
-	///swarmtest
-	//for (int i = 1; i < 51; i++) {
-	//	_PawnArray[i] = new Pawn(rand() % 500, rand() % 300, rand() % 20);
-	//	_ControllerArray[i] = new ANPCController(_PawnArray[i]);
-	//	_PawnArray[i]->AssignController(_ControllerArray[i]);
-	//	_ControllerArray[i]->SetTarget(_PawnArray[0]);
-	//}
-	///
 
 	// Initialise CollisionField
 	_CollisionField = new CollisionField();
 	//
 	
-	_GameState._r = 255; _GameState._g = 255; _GameState._b = 255;
+	_GameState._pawnColour[0] = Color(255, 255, 255);
 	_frameInterval = 0;
 	DRAW = true;
 	WAIT = false;
@@ -76,11 +61,11 @@ void Game::Go()
 
 	/// Test Spawner 2	
 		for (int i = 1; i <= _GameState.GAMESIZE; i++) {
-			if (_GameState._PawnArray[i] == NULL) {
-				_GameState._PawnArray[i] = new Pawn(rand() % 800, rand() % 600, rand() % 10 + 4);
-				_ControllerArray[i] = new ANPCController(_GameState._PawnArray[i]);
-				_GameState._PawnArray[i]->AssignController(_ControllerArray[i]);
-				_ControllerArray[i]->SetTarget(_GameState._PawnArray[0]);
+			if (_GameState._pawnArray[i] == NULL) {
+				_GameState._pawnArray[i] = new Pawn(rand() % 800, rand() % 600, rand() % 10 + 4);
+				_ControllerArray[i] = new ANPCController(_GameState._pawnArray[i]);
+				_GameState._pawnArray[i]->AssignController(_ControllerArray[i]);
+				_ControllerArray[i]->SetTarget(_GameState._pawnArray[0]);
 			}
 		}
 
@@ -111,10 +96,10 @@ void Game::UpdateModel()
 {	
 	//_PlayerController->ControllerGo(_frameInterval);
 	for (int i = 0; i < _GameState.GAMESIZE; i++) {
-		if (_GameState._PawnArray[i] != NULL) {
-			if (_GameState._PawnArray[i]->_destroy) {
-				delete _GameState._PawnArray[i];
-				_GameState._PawnArray[i] = nullptr;
+		if (_GameState._pawnArray[i] != NULL) {
+			if (_GameState._pawnArray[i]->_destroy) {
+				delete _GameState._pawnArray[i];
+				_GameState._pawnArray[i] = nullptr;
 				delete _ControllerArray[i];
 				_ControllerArray[i] = nullptr;
 			}
@@ -123,10 +108,11 @@ void Game::UpdateModel()
 			_ControllerArray[i]->ControllerGo(_frameInterval);
 		}
 		/// Move below To drawing thread
-		if (_GameState._PawnArray[i] != NULL) {			
-			_GameState._pawnCentre[i] = _GameState._PawnArray[i]->QueryPosition();
-			_GameState._pawnSize[i] = _GameState._PawnArray[i]->QuerySize();
-			_CollisionField->UpdateCollisionField(_GameState._PawnArray[i]);
+		if (_GameState._pawnArray[i] != NULL) {			
+			_GameState._pawnCentre[i] = _GameState._pawnArray[i]->QueryPosition();
+			_GameState._pawnSize[i] = _GameState._pawnArray[i]->QuerySize();
+			_GameState._pawnColour[i] = _GameState._pawnArray[i]->QueryColour();
+			_CollisionField->UpdateCollisionField(_GameState._pawnArray[i]);
 		}
 		///
 	}
@@ -136,27 +122,25 @@ void Game::UpdateModel()
 void Game::PushGameState()
 {
 	for (int i = 0; i < GameState::GAMESIZE; i++) {
-		Buffer._PawnArray[i] = _GameState._PawnArray[i];
+		Buffer._pawnArray[i] = _GameState._pawnArray[i];
 		Buffer._pawnSize[i] = _GameState._pawnSize[i];
 		Buffer._pawnCentre[i] = _GameState._pawnCentre[i];
+		Buffer._pawnColour[i] = _GameState._pawnColour[i];
 	}
-	Buffer._r = _GameState._r;
-	Buffer._g = _GameState._g;
-	Buffer._b = _GameState._b;
 }
 
 void Game::PushFrame()
 {
 	WAIT = true;
 	gfx.BeginFrame();
-	DrawCollisionField();
+//	DrawCollisionField();
 
 	for (int i = 1; i < Buffer.GAMESIZE; i++) {
-		if (Buffer._PawnArray[i] != NULL) {
-			DrawCrosshair(Buffer._pawnCentre[i].x, Buffer._pawnCentre[i].y, Buffer._pawnSize[i], 127, 0, 255);
+		if (Buffer._pawnArray[i] != NULL) {
+			DrawCrosshair(Buffer._pawnCentre[i].x, Buffer._pawnCentre[i].y, Buffer._pawnSize[i], Buffer._pawnColour[i]);
 		}
 	}
-	DrawBox(Buffer._pawnCentre[0].x, Buffer._pawnCentre[0].y, Buffer._pawnSize[0], Buffer._r, Buffer._g, Buffer._b);
+	DrawBox(Buffer._pawnCentre[0].x, Buffer._pawnCentre[0].y, Buffer._pawnSize[0], Buffer._pawnColour[0]);
 	gfx.EndFrame();
 	WAIT = false;
 }
@@ -166,31 +150,31 @@ void Game::ComposeFrame()
 
 }
 
-void Game::DrawBox(int xcentre, int ycentre, int size, int r, int g, int b)
+void Game::DrawBox(int xcentre, int ycentre, int size, Color c)
 {
 	for (int i = 0; i <= (size / 4); i++) {
-		gfx.PutPixel((xcentre - (size / 2)) + i, (ycentre - (size / 2)), r, g, b);
-		gfx.PutPixel((xcentre - (size / 2)) + i, (ycentre + (size / 2)), r, g, b);
+		gfx.PutPixel((xcentre - (size / 2)) + i, (ycentre - (size / 2)), c);
+		gfx.PutPixel((xcentre - (size / 2)) + i, (ycentre + (size / 2)), c);
 										   
-		gfx.PutPixel((xcentre + (size / 4)) + i, (ycentre - (size / 2)), r, g, b);
-		gfx.PutPixel((xcentre + (size / 4)) + i, (ycentre + (size / 2)), r, g, b);
+		gfx.PutPixel((xcentre + (size / 4)) + i, (ycentre - (size / 2)), c);
+		gfx.PutPixel((xcentre + (size / 4)) + i, (ycentre + (size / 2)), c);
 					  			 
-		gfx.PutPixel((xcentre - (size / 2)), (ycentre - (size / 2)) + i, r, g, b);
-		gfx.PutPixel((xcentre - (size / 2)) + size, (ycentre - (size / 2)) + i, r, g, b);
+		gfx.PutPixel((xcentre - (size / 2)), (ycentre - (size / 2)) + i, c);
+		gfx.PutPixel((xcentre - (size / 2)) + size, (ycentre - (size / 2)) + i, c);
 					  
-		gfx.PutPixel((xcentre - (size / 2)), (ycentre + (size / 4)) + i, r, g, b);
-		gfx.PutPixel((xcentre + (size / 2)), (ycentre + (size / 4)) + i, r, g, b);
+		gfx.PutPixel((xcentre - (size / 2)), (ycentre + (size / 4)) + i, c);
+		gfx.PutPixel((xcentre + (size / 2)), (ycentre + (size / 4)) + i, c);
 	}
 }
 
-void Game::DrawCrosshair(int xcentre, int ycentre, int size, int r, int g, int b)
+void Game::DrawCrosshair(int xcentre, int ycentre, int size, Color c)
 {
 	for (int i = 0; i <= (size / 4); i++) {
-		gfx.PutPixel(xcentre - (i + (size / 4)), ycentre, r, g, b);
-		gfx.PutPixel(xcentre + (i + (size / 4)), ycentre, r, g, b);
-
-		gfx.PutPixel(xcentre, ycentre - (i + (size / 4)), r, g, b);
-		gfx.PutPixel(xcentre, ycentre + (i + (size / 4)), r, g, b);
+		gfx.PutPixel(xcentre - (i + (size / 4)), ycentre, c);
+		gfx.PutPixel(xcentre + (i + (size / 4)), ycentre, c);
+														  
+		gfx.PutPixel(xcentre, ycentre - (i + (size / 4)), c);
+		gfx.PutPixel(xcentre, ycentre + (i + (size / 4)), c);
 	}
 }
 

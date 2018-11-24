@@ -56,8 +56,8 @@ public:
 private:
 	/********************************/
 	/*  User Functions              */
-	void DrawBox(const int xcentre, const int ycentre, const int size, const int r, const int g, const int b);
-	void DrawCrosshair(const int xcentre, const int ycentre, const int size, const int r, const int g, const int b);
+	void DrawBox(const int xcentre, const int ycentre, const int size, const class Color c);
+	void DrawCrosshair(const int xcentre, const int ycentre, const int size, const class Color c);
 	bool CheckForOverlap(const int xcentre1, const int ycentre1, const int size1, const int xcentre2, const int ycentre2, const int size2);
 	bool CheckForScreenBoundaryTouch(const int scentre, const int size, const int sboundary);
 	void DrawCollisionField();

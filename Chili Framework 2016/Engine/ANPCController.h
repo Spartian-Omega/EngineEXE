@@ -9,9 +9,13 @@ public:
 
 	void ControllerGo(double dt);
 	void SetTarget(class Pawn * targetPawn);
+	void CyclePawnColour();
+
 	Pawn * GetTarget();
 protected:
 	void setPawnSpeed(double dt);
 	Pawn * _TargetPawn;
+
+	double _cTimer;
 };
 

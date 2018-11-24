@@ -4,6 +4,7 @@
 
 APlayerController::APlayerController(Pawn * pawn, class MainWindow & wnd) : Controller(pawn) , wnd(wnd)
 {
+	myPawn->SetColour(Color(255, 255, 255));
 }
 
 

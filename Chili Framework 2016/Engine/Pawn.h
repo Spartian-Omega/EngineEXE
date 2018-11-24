@@ -2,6 +2,7 @@
 #include "HitBox.h"
 #include "Controller.h"
 #include "_2D_Vector.h"
+#include "Colors.h"
 #include <string>
 #include <sstream>
 
@@ -16,12 +17,16 @@ public:
 	void AssignController(class Controller * controller);
 	void MoveHorizontal(int direction, double dt);
 	void MoveVertical(int direction, double dt);
+
+	void SetColour(class Color c);
+
 	void UpdatePawn();
 	int QuerySize();
+	_2D_Point QueryPosition();
+	Color QueryColour();
 
 	void collisionDetected(class Pawn * collidingPawn);
 
-	_2D_Point QueryPosition();
 
 	//Friction of the current surface;
 	float _areaFriction;
@@ -40,6 +45,8 @@ private:
 	//Physical Properties
 	_2D_Point _centre;
 	int	  _size;
+	Color _c;
+	std::wstring _shape;
 
 	//Dynamic Properties
 	double _dx, _dy;

@@ -4,6 +4,7 @@
 #include "Controller.h"
 #include "Pawn.h"
 #include "_2D_Vector.h"
+#include "Colors.h"
 
 class GameState
 {
@@ -12,10 +13,10 @@ public:
 	GameState();
 	~GameState();
 protected:
-	static int const GAMESIZE = 12000; // Amount of Pawns in the Game
-	Pawn * _PawnArray[GAMESIZE];
+	static int const GAMESIZE = 1000; // Amount of Pawns in the Game
+	Pawn * _pawnArray[GAMESIZE];
 	int _pawnSize[GAMESIZE];
 	_2D_Point _pawnCentre[GAMESIZE];
-	int _r, _g, _b;
+	Color _pawnColour[GAMESIZE];
 };
 
