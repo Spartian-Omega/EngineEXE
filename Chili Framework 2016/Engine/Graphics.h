@@ -56,6 +56,11 @@ public:
 		PutPixel( x,y,{ unsigned char( r ),unsigned char( g ),unsigned char( b ) } );
 	}
 	void PutPixel( int x,int y,Color c );
+
+	void DrawRectangle(const int xcentre, const int ycentre, const int xsize, const int ysize, const class Color c);
+	void DrawCBox(const int xcentre, const int ycentre, const int size, const class Color c); // Crosshair Box
+	void DrawCrosshair(const int xcentre, const int ycentre, const int size, const class Color c); // Crosshair
+
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;

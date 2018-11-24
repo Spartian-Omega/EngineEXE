@@ -20,7 +20,7 @@ void ANPCController::SetTarget(Pawn * targetPawn)
 
 void ANPCController::CyclePawnColour()
 {
-	Color c(_cTimer, 0, 100);
+	Color c(25 * _cTimer, 0 * _cTimer, 50 * _cTimer);
 	myPawn->SetColour(c);
 }
 
@@ -32,7 +32,7 @@ Pawn * ANPCController::GetTarget()
 void ANPCController::ControllerGo(double dt)
 {
 	setPawnSpeed(dt);
-	_cTimer += dt * 100;
+	_cTimer += dt;
 	CyclePawnColour();
 	myPawn->UpdatePawn();
 }

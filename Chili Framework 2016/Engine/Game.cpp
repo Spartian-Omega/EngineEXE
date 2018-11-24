@@ -137,10 +137,11 @@ void Game::PushFrame()
 
 	for (int i = 1; i < Buffer.GAMESIZE; i++) {
 		if (Buffer._pawnArray[i] != NULL) {
-			DrawCrosshair(Buffer._pawnCentre[i].x, Buffer._pawnCentre[i].y, Buffer._pawnSize[i], Buffer._pawnColour[i]);
+			gfx.DrawCrosshair(Buffer._pawnCentre[i].x, Buffer._pawnCentre[i].y, Buffer._pawnSize[i], Buffer._pawnColour[i]);
+			gfx.DrawRectangle(Buffer._pawnCentre[i].x, Buffer._pawnCentre[i].y, Buffer._pawnSize[i], Buffer._pawnSize[i],  Buffer._pawnColour[i]);
 		}
 	}
-	DrawBox(Buffer._pawnCentre[0].x, Buffer._pawnCentre[0].y, Buffer._pawnSize[0], Buffer._pawnColour[0]);
+	gfx.DrawCBox(Buffer._pawnCentre[0].x, Buffer._pawnCentre[0].y, Buffer._pawnSize[0], Buffer._pawnColour[0]);
 	gfx.EndFrame();
 	WAIT = false;
 }
@@ -150,33 +151,7 @@ void Game::ComposeFrame()
 
 }
 
-void Game::DrawBox(int xcentre, int ycentre, int size, Color c)
-{
-	for (int i = 0; i <= (size / 4); i++) {
-		gfx.PutPixel((xcentre - (size / 2)) + i, (ycentre - (size / 2)), c);
-		gfx.PutPixel((xcentre - (size / 2)) + i, (ycentre + (size / 2)), c);
-										   
-		gfx.PutPixel((xcentre + (size / 4)) + i, (ycentre - (size / 2)), c);
-		gfx.PutPixel((xcentre + (size / 4)) + i, (ycentre + (size / 2)), c);
-					  			 
-		gfx.PutPixel((xcentre - (size / 2)), (ycentre - (size / 2)) + i, c);
-		gfx.PutPixel((xcentre - (size / 2)) + size, (ycentre - (size / 2)) + i, c);
-					  
-		gfx.PutPixel((xcentre - (size / 2)), (ycentre + (size / 4)) + i, c);
-		gfx.PutPixel((xcentre + (size / 2)), (ycentre + (size / 4)) + i, c);
-	}
-}
 
-void Game::DrawCrosshair(int xcentre, int ycentre, int size, Color c)
-{
-	for (int i = 0; i <= (size / 4); i++) {
-		gfx.PutPixel(xcentre - (i + (size / 4)), ycentre, c);
-		gfx.PutPixel(xcentre + (i + (size / 4)), ycentre, c);
-														  
-		gfx.PutPixel(xcentre, ycentre - (i + (size / 4)), c);
-		gfx.PutPixel(xcentre, ycentre + (i + (size / 4)), c);
-	}
-}
 
 bool Game::CheckForOverlap(int xcentre1, int ycentre1, int size1, int xcentre2, int ycentre2, int size2)
 {

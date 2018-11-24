@@ -316,6 +316,59 @@ void Graphics::PutPixel( int x,int y,Color c )
 	pSysBuffer[Graphics::ScreenWidth * y + x] = c;
 }
 
+void Graphics::DrawRectangle(const int xcentre, const int ycentre, const int xsize, const int ysize, const Color c)
+{
+	int x1, y1;
+	x1 = xcentre - xsize / 2;
+	y1 = ycentre - ysize / 2;
+	for (int i = 0; i <= xsize; i++) {
+		for (int k = 0; k <= ysize; k++) {
+			PutPixel(x1 + i, y1 + k, c);
+		}
+	}
+}
+
+void Graphics::DrawCBox(int xcentre, int ycentre, int size, Color c)
+{
+	int x1, x2, x3, y1, y2, y3;
+	x1 = (xcentre - (size / 2));
+	x2 = x1 + size;
+	x3 = (xcentre + (size / 4));
+	y1 = (ycentre - (size / 2));
+	y2 = (ycentre + (size / 2));
+	y3 = (ycentre + (size / 4));
+	for (int i = 0; i <= (size / 4); i++) {
+		PutPixel(x1 + i, y1, c);
+		PutPixel(x1 + i, y2, c);
+
+		PutPixel(x3 + i, y1, c);
+		PutPixel(x3 + i, y2, c);
+
+		PutPixel(x1, y1 + i, c);
+		PutPixel(x2, y1 + i, c);
+
+		PutPixel(x1, y3 + i, c);
+		PutPixel(x2, y3 + i, c);
+	}
+}
+
+void Graphics::DrawCrosshair(int xcentre, int ycentre, int size, Color c)
+{
+	int x1, x2, y1, y2;
+	x1 = xcentre - (size / 4);
+	x2 = xcentre + (size / 4);
+	y1 = ycentre - (size / 4);
+	y2 = ycentre + (size / 4);
+	for (int i = 0; i <= (size / 4); i++) {
+		PutPixel(x1 - i, ycentre, c);
+		PutPixel(x2 + i, ycentre, c);
+
+		PutPixel(xcentre, y1 - i, c);
+		PutPixel(xcentre, y2 + i, c);
+	}
+}
+
+
 
 //////////////////////////////////////////////////
 //           Graphics Exception
