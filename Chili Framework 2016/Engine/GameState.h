@@ -13,7 +13,7 @@ public:
 	GameState();
 	~GameState();
 protected:
-	static int const GAMESIZE = 100; // Amount of Pawns in the Game
+	static int const GAMESIZE = 10000; // Amount of Pawns in the Game
 	Pawn * _pawnArray[GAMESIZE];
 	int _pawnSize[GAMESIZE];
 	_2D_Point _pawnCentre[GAMESIZE];

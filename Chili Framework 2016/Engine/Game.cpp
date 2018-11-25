@@ -62,7 +62,7 @@ void Game::Go()
 	/// Test Spawner 2	
 		for (int i = 1; i <= _GameState.GAMESIZE; i++) {
 			if (_GameState._pawnArray[i] == NULL) {
-				_GameState._pawnArray[i] = new Pawn(rand() % 800, rand() % 600, rand() % 10 + 4);
+				_GameState._pawnArray[i] = new Pawn(rand() % 800, rand() % 600, rand() % 4 + 1);
 				_ControllerArray[i] = new ANPCController(_GameState._pawnArray[i]);
 				_GameState._pawnArray[i]->AssignController(_ControllerArray[i]);
 				_ControllerArray[i]->SetTarget(_GameState._pawnArray[0]);
@@ -137,7 +137,7 @@ void Game::PushFrame()
 
 	for (int i = 1; i < Buffer.GAMESIZE; i++) {
 		if (Buffer._pawnArray[i] != NULL) {
-			gfx.DrawCrosshair(Buffer._pawnCentre[i].x, Buffer._pawnCentre[i].y, Buffer._pawnSize[i], Buffer._pawnColour[i]);
+			//gfx.DrawCrosshair(Buffer._pawnCentre[i].x, Buffer._pawnCentre[i].y, Buffer._pawnSize[i], Buffer._pawnColour[i]);
 			gfx.DrawRectangle(Buffer._pawnCentre[i].x, Buffer._pawnCentre[i].y, Buffer._pawnSize[i], Buffer._pawnSize[i],  Buffer._pawnColour[i]);
 		}
 	}
