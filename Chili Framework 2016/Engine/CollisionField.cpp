@@ -18,16 +18,17 @@ CollisionField::~CollisionField()
 void CollisionField::UpdateCollisionField(class Pawn * pawn)
 {
 	_2D_Point pp = pawn->QueryPosition();
-	int ps = pawn->QuerySize();
+	int psh = pawn->QuerySizeH();
+	int psw = pawn->QuerySizeW();
 	int ppx = (int)pp.x;
 	int ppy = (int)pp.y;
 
-	int edgeTop = ppy - ps / 2;
-	int edgeBottom = ppy + ps / 2;
-	int edgeLeft = ppx - ps / 2;
-	int edgeRight = ppx + ps / 2;
+	int edgeTop = ppy - psh / 2;
+	int edgeBottom = ppy + psh / 2;
+	int edgeLeft = ppx - psw / 2;
+	int edgeRight = ppx + psw / 2;
 
-		for (int i = 0; i < ps; i++) {
+		for (int i = 0; i < psw; i++) {
 			if (_pawnArray[edgeTop][edgeLeft + i + 1] != NULL) {
 				pawn->collisionDetected(_pawnArray[edgeTop][edgeLeft + i + 1]);
 			}
@@ -39,7 +40,9 @@ void CollisionField::UpdateCollisionField(class Pawn * pawn)
 			}
 			else {
 				_pawnArray[edgeBottom][edgeRight - i - 1] = pawn;
-			}
+			}		
+		}
+		for (int i = 0; i < psh; i++) {
 			if (_pawnArray[edgeTop + i][edgeLeft] != NULL) {
 				pawn->collisionDetected(_pawnArray[edgeTop + i][edgeLeft]);
 			}
@@ -51,7 +54,7 @@ void CollisionField::UpdateCollisionField(class Pawn * pawn)
 			}
 			else {
 				_pawnArray[edgeBottom - i][edgeRight] = pawn;
-			}		
+			}
 		}
 }
 

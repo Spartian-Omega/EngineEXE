@@ -11,7 +11,7 @@
 class Pawn
 {
 public:
-	Pawn(int x, int y, int size);
+	Pawn(int x, int y, int sizeH, int sizeW);
 	~Pawn();
 
 	void AssignController(class Controller * controller);
@@ -21,7 +21,8 @@ public:
 	void SetColour(class Color c);
 
 	void UpdatePawn();
-	int QuerySize();
+	int QuerySizeH();
+	int QuerySizeW();
 	_2D_Point QueryPosition();
 	Color QueryColour();
 
@@ -44,7 +45,7 @@ private:
 
 	//Physical Properties
 	_2D_Point _centre;
-	int	  _size;
+	int	  _sizeH, _sizeW;
 	Color _c;
 	std::wstring _shape;
 

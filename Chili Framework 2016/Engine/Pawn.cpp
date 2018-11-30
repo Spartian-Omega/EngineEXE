@@ -2,7 +2,7 @@
 
 
 
-Pawn::Pawn(int x, int y, int size)
+Pawn::Pawn(int x, int y, int sizeW, int sizeH)
 {
 	////////////////
 	_destroy = false;
@@ -10,8 +10,9 @@ Pawn::Pawn(int x, int y, int size)
 
 	_centre.x = x;
 	_centre.y = y;
-	_size = size;
-	MyHitBox.Set(_centre, _size);
+	_sizeH = sizeH;
+	_sizeW = sizeW;
+	MyHitBox.Set(_centre, _sizeW, _sizeH);
 	
 	_path.p1.x = x;
 	_path.p1.y = y;
@@ -154,9 +155,14 @@ void Pawn::UpdatePawn()
 	_path.p2.y = _centre.y;
 }
 
-int Pawn::QuerySize()
+int Pawn::QuerySizeH()
 {
-	return _size;
+	return _sizeH;
+}
+
+int Pawn::QuerySizeW()
+{
+	return _sizeW;
 }
 
 Color Pawn::QueryColour()

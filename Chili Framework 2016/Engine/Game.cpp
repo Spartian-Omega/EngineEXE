@@ -31,7 +31,7 @@ Game::Game(MainWindow& wnd)
 	_GameState()
 {
 	// Initialise Player
-	_Player = new Pawn(400, 300, 20);
+	_Player = new Pawn(400, 300, 20, 20);
 	_PlayerController = new APlayerController(_Player, wnd);
 	_Player->AssignController(_PlayerController);
 	_GameState._pawnArray[0] = _Player;
@@ -62,7 +62,7 @@ void Game::Go()
 	/// Test Spawner 2	
 		for (int i = 1; i <= _GameState.GAMESIZE; i++) {
 			if (_GameState._pawnArray[i] == NULL) {
-				_GameState._pawnArray[i] = new Pawn(rand() % 800, rand() % 600, rand() % 4 + 1);
+				_GameState._pawnArray[i] = new Pawn(rand() % 800, rand() % 600, rand() % 20 + 4, rand() % 20 + 4);
 				_ControllerArray[i] = new ANPCController(_GameState._pawnArray[i]);
 				_GameState._pawnArray[i]->AssignController(_ControllerArray[i]);
 				_ControllerArray[i]->SetTarget(_GameState._pawnArray[0]);
@@ -110,7 +110,8 @@ void Game::UpdateModel()
 		/// Move below To drawing thread
 		if (_GameState._pawnArray[i] != NULL) {			
 			_GameState._pawnCentre[i] = _GameState._pawnArray[i]->QueryPosition();
-			_GameState._pawnSize[i] = _GameState._pawnArray[i]->QuerySize();
+			_GameState._pawnSizeH[i] = _GameState._pawnArray[i]->QuerySizeH();
+			_GameState._pawnSizeW[i] = _GameState._pawnArray[i]->QuerySizeW();
 			_GameState._pawnColour[i] = _GameState._pawnArray[i]->QueryColour();
 			_CollisionField->UpdateCollisionField(_GameState._pawnArray[i]);
 		}
@@ -123,7 +124,8 @@ void Game::PushGameState()
 {
 	for (int i = 0; i < GameState::GAMESIZE; i++) {
 		Buffer._pawnArray[i] = _GameState._pawnArray[i];
-		Buffer._pawnSize[i] = _GameState._pawnSize[i];
+		Buffer._pawnSizeH[i] = _GameState._pawnSizeH[i];
+		Buffer._pawnSizeW[i] = _GameState._pawnSizeW[i];
 		Buffer._pawnCentre[i] = _GameState._pawnCentre[i];
 		Buffer._pawnColour[i] = _GameState._pawnColour[i];
 	}
@@ -137,11 +139,16 @@ void Game::PushFrame()
 
 	for (int i = 1; i < Buffer.GAMESIZE; i++) {
 		if (Buffer._pawnArray[i] != NULL) {
-			//gfx.DrawCrosshair(Buffer._pawnCentre[i].x, Buffer._pawnCentre[i].y, Buffer._pawnSize[i], Buffer._pawnColour[i]);
-			gfx.DrawRectangle(Buffer._pawnCentre[i].x, Buffer._pawnCentre[i].y, Buffer._pawnSize[i], Buffer._pawnSize[i],  Buffer._pawnColour[i]);
+			//if (Buffer._pawnSizeW[i] < Buffer._pawnSizeH[i]) {
+			//	gfx.DrawCrosshair(Buffer._pawnCentre[i].x, Buffer._pawnCentre[i].y, Buffer._pawnSizeH[i], Buffer._pawnColour[i]);
+			//}
+			//else {
+			//	gfx.DrawCrosshair(Buffer._pawnCentre[i].x, Buffer._pawnCentre[i].y, Buffer._pawnSizeW[i], Buffer._pawnColour[i]);
+			//}
+			gfx.DrawRectangle(Buffer._pawnCentre[i].x, Buffer._pawnCentre[i].y, Buffer._pawnSizeW[i], Buffer._pawnSizeH[i],  Buffer._pawnColour[i]);
 		}
 	}
-	gfx.DrawCBox(Buffer._pawnCentre[0].x, Buffer._pawnCentre[0].y, Buffer._pawnSize[0], Buffer._pawnColour[0]);
+	gfx.DrawCBox(Buffer._pawnCentre[0].x, Buffer._pawnCentre[0].y, Buffer._pawnSizeW[0], Buffer._pawnColour[0]);
 	gfx.EndFrame();
 	WAIT = false;
 }
