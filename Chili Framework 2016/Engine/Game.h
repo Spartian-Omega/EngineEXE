@@ -46,7 +46,6 @@ public:
 	Game& operator=(const Game&) = delete;
 	void Go();
 private:
-	void ComposeFrame();
 	void UpdateModel();
 	/// Super Special Function
 	void PushGameState();
@@ -64,6 +63,7 @@ private:
 public:
 	bool DRAW;
 	bool WAIT;
+	bool HOLD;
 private:
 	MainWindow& wnd;
 	Graphics gfx;
@@ -71,7 +71,7 @@ private:
 	Pawn * _Player;
 	CollisionField *_CollisionField;
 
-	double _frameInterval;
+	double _cycleInterval;
 	std::wstring _debug_wstream;
 
 	GameState _GameState;

@@ -25,6 +25,7 @@
 
 #include <string>
 #include <sstream>
+#include <chrono>
 
 #include "MainWindow.h"
 #include "Game.h"
@@ -46,7 +47,22 @@ DWORD WINAPI GRAPHICSTHREAD(__in LPVOID lpParameter)
 
 	//wait for graphics
 	while (pGraphicsThreadData->GameAddress->DRAW){
-		pGraphicsThreadData->GameAddress->PushFrame();
+		double _frameInterval = 0;
+		auto start = std::chrono::system_clock::now();
+		if (pGraphicsThreadData->GameAddress->HOLD) {
+		}
+		else {
+			pGraphicsThreadData->GameAddress->PushFrame();
+		}
+		auto end = std::chrono::system_clock::now();
+		std::chrono::duration<double> elapsed_seconds = end - start;
+
+
+
+		_frameInterval = elapsed_seconds.count();
+		_debug_wstream = std::to_wstring(_frameInterval);
+		_debug_wstream = L"Frame Interval = " + _debug_wstream + L"\n";
+		OutputDebugString(_debug_wstream.c_str());
 }
 	return 3;
 }
