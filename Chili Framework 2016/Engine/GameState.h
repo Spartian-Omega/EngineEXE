@@ -20,7 +20,7 @@ public:
 	GameState();
 	~GameState();
 
-	void IsHost(bool ishost) { isHost = ishost; }
+	void IsHost(bool ishost) { isHost = ishost;	}
 	void SetHost() {}
 
 protected:
