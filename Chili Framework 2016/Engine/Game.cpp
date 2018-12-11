@@ -64,7 +64,7 @@ void Game::Go()
 	//
 	auto start = std::chrono::system_clock::now();
 
-	_CurrentLevel->LevelGo();
+	_CurrentLevel->LevelGo(_cycleInterval);
 
 	/// Test Spawner
 	/*
@@ -101,7 +101,7 @@ void Game::Go()
 
 
 
-	//_cycleInterval = elapsed_seconds.count();
+	_cycleInterval = elapsed_seconds.count();
 	//_debug_wstream = std::to_wstring(_cycleInterval);
 	//_debug_wstream = L"Cycle Interval = " + _debug_wstream + L"\n";
 	//OutputDebugString(_debug_wstream.c_str());

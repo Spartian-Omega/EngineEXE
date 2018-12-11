@@ -12,7 +12,7 @@ public:
 	bool QueryHit();
 	bool QueryHit(_2D_Point h);
 
-	
+	void Release();
 	
 	void Draw(class Graphics & gfx);
 

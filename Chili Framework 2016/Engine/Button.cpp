@@ -31,6 +31,11 @@ bool Button::QueryHit(_2D_Point h)
 	return (_isPressed = (h.y < btop && h.y > bbottom && h.x > bleft && h.x < bright));
 }
 
+void Button::Release()
+{
+	_isPressed = false;
+}
+
 
 
 void Button::Draw(Graphics & gfx)

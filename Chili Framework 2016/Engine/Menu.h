@@ -13,7 +13,7 @@ public:
 	Menu(class GameState & g);
 	~Menu();
 	
-	void LevelGo();
+	void LevelGo(double dt);
 
 protected:
 	Widget * _Widgets[10];

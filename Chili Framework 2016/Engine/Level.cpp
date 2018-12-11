@@ -11,6 +11,6 @@ Level::~Level()
 {
 }
 
-void Level::LevelGo()
+void Level::LevelGo(double dt)
 {
 }
