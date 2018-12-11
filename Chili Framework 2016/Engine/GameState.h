@@ -16,17 +16,23 @@ class GameState
 	friend class Menu;
 public:
 	GameState();
-
 	~GameState();
+
+	void IsHost(bool ishost) { isHost = ishost; }
+	void SetHost() {}
+
 protected:
 	static int const GAMESIZE = 100; // Amount of Pawns in the Game
 
-	Pawn * _pawnArray[GAMESIZE];
+	bool isHost = true;
+
+
+	Pawn * _pawnArray[GAMESIZE] = { nullptr };
 	int _pawnSizeW[GAMESIZE];
 	int _pawnSizeH[GAMESIZE];
 	_2D_Point _pawnCentre[GAMESIZE];
 	Color _pawnColour[GAMESIZE];
 
-	Widget * _widgetArray[100];
+	Widget * _widgetArray[100] = { nullptr };
 };
 

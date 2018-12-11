@@ -13,6 +13,7 @@ public:
 protected:
 	Map _map;
 	GameState & _GameState;
+	bool _nextLevel = false;
 
 };
 

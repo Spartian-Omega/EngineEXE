@@ -89,6 +89,6 @@ protected:
 	/*  User Variables              */
 
 	Controller * _PlayerController;
-	Controller * _ControllerArray[GameState::GAMESIZE];
+	Controller * _ControllerArray[GameState::GAMESIZE] = { nullptr };
 	/********************************/
 };

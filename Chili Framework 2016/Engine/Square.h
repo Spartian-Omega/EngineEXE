@@ -10,7 +10,7 @@ public:
 	int QueryWidth() { return _size; }
 	int QueryHeight() { return _size; }
 
-	protected:
-		int _size;
+protected:
+	int _size;
 };
 
