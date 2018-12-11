@@ -31,6 +31,7 @@
 
 #include "Level.h"
 #include "Menu.h"
+#include "TestLevel.h"
 
 #include "APlayerController.h"
 #include "ANPCController.h"
@@ -49,7 +50,6 @@ public:
 	Game& operator=(const Game&) = delete;
 	void Go();
 private:
-	void UpdateModel();
 	/// Super Special Function
 	void PushGameState();
 public:
@@ -60,10 +60,6 @@ private:
 	/*  User Functions              */
 	void UpdateWidget();
 
-
-	bool CheckForOverlap(const int xcentre1, const int ycentre1, const int size1, const int xcentre2, const int ycentre2, const int size2);
-	bool CheckForScreenBoundaryTouch(const int scentre, const int size, const int sboundary);
-	void DrawCollisionField();
 	/********************************/
 public:
 	bool DRAW;
@@ -73,8 +69,7 @@ private:
 	MainWindow& wnd;
 	Graphics gfx;
 
-	Pawn * _Player;
-	CollisionField *_CollisionField;
+
 
 	double _cycleInterval;
 	std::wstring _debug_wstream;
@@ -82,13 +77,11 @@ private:
 	GameState _GameState;
 	GameState Buffer;
 
-	Level * _CurrentLevel;
+	LevelPath _LevelPath;
 
 protected:
 	/********************************/
 	/*  User Variables              */
 
-	Controller * _PlayerController;
-	Controller * _ControllerArray[GameState::GAMESIZE] = { nullptr };
 	/********************************/
 };

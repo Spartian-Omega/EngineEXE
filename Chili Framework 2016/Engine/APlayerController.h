@@ -9,7 +9,11 @@ public:
 
 	void ControllerGo(double dt);
 	Pawn * GetTarget();
+
+	bool ControlIsPressed() { return _ctrlPressed; }
+
 protected:
 	MainWindow& wnd;
+	bool _ctrlPressed = false;
 };
 

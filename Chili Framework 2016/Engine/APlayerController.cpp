@@ -44,6 +44,8 @@ void APlayerController::ControllerGo(double dt)
 		myPawn->MoveVertical(0, dt);
 	}
 	myPawn->UpdatePawn();
+
+	_ctrlPressed = wnd.kbd.KeyIsPressed(VK_CONTROL);
 }
 
 Pawn * APlayerController::GetTarget()

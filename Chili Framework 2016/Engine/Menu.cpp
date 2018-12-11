@@ -13,6 +13,11 @@ Menu::Menu(GameState & g) : Level(g)
 
 Menu::~Menu()
 {
+	delete _GameState._widgetArray[0];
+	delete _GameState._widgetArray[1];
+
+	_GameState._widgetArray[0] = nullptr;
+	_GameState._widgetArray[1] = nullptr;
 }
 
 void Menu::LevelGo(double dt)

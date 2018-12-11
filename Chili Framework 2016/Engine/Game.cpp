@@ -32,24 +32,13 @@ Game::Game(MainWindow& wnd)
 	gfx(wnd),
 	_GameState()
 {
-	// Initialise Player
-	_Player = new Pawn(400, 300, 20, 20);
-	_PlayerController = new APlayerController(_Player, wnd);
-	_Player->AssignController(_PlayerController);
-	_GameState._pawnArray[0] = _Player;
-	_ControllerArray[0] = _PlayerController;
-	//
 
-	// Initialise CollisionField
-	_CollisionField = new CollisionField();
-	//
-	
-	_GameState._pawnColour[0] = Color(255, 255, 255);
 	_cycleInterval = 0;
 	DRAW = true;
 	WAIT = false;
 
-	_CurrentLevel = new Menu(_GameState);
+	_LevelPath.CurrentLevel = new Menu(_GameState);
+	_LevelPath.NextLevel = new TestLevel(_GameState, wnd);
 
 }
 
@@ -64,26 +53,13 @@ void Game::Go()
 	//
 	auto start = std::chrono::system_clock::now();
 
-	_CurrentLevel->LevelGo(_cycleInterval);
 
-	/// Test Spawner
-	/*
-	if (wnd.kbd.KeyIsPressed(VK_CONTROL)) {
+	_LevelPath.LevelPathGo();
+	_LevelPath.CurrentLevel->LevelGo(_cycleInterval);
 
-		for (int i = 1; i <= _GameState.GAMESIZE; i++) {
-			if (_GameState._pawnArray[i] == NULL) {
-				_GameState._pawnArray[i] = new Pawn(rand() % 800, rand() % 600, rand() % 20 + 4, rand() % 20 + 4);
-				_ControllerArray[i] = new ANPCController(_GameState._pawnArray[i]);
-				_GameState._pawnArray[i]->AssignController(_ControllerArray[i]);
-				_ControllerArray[i]->SetTarget(_GameState._pawnArray[0]);
-			}
-		}
 
-	}
-	///
-	*/
 
-	UpdateModel();
+
 
 	UpdateWidget();
 
@@ -92,7 +68,6 @@ void Game::Go()
 
 	///
 
-	_CollisionField->EmptyCollisionField();
 
 
 
@@ -105,34 +80,6 @@ void Game::Go()
 	//_debug_wstream = std::to_wstring(_cycleInterval);
 	//_debug_wstream = L"Cycle Interval = " + _debug_wstream + L"\n";
 	//OutputDebugString(_debug_wstream.c_str());
-}
-
-void Game::UpdateModel()
-{	
-	//_PlayerController->ControllerGo(_frameInterval);
-	for (int i = 0; i < _GameState.GAMESIZE; i++) {
-		if (_GameState._pawnArray[i] != NULL) {
-			if (_GameState._pawnArray[i]->_destroy) {
-				delete _GameState._pawnArray[i];
-				_GameState._pawnArray[i] = nullptr;
-				delete _ControllerArray[i];
-				_ControllerArray[i] = nullptr;
-			}
-		}
-		if (_ControllerArray[i] != NULL) {
-			_ControllerArray[i]->ControllerGo(_cycleInterval);
-		}
-		/// Move below To drawing thread
-		if (_GameState._pawnArray[i] != NULL) {			
-			_GameState._pawnCentre[i] = _GameState._pawnArray[i]->QueryPosition();
-			_GameState._pawnSizeH[i] = _GameState._pawnArray[i]->QuerySizeH();
-			_GameState._pawnSizeW[i] = _GameState._pawnArray[i]->QuerySizeW();
-			_GameState._pawnColour[i] = _GameState._pawnArray[i]->QueryColour();
-			_CollisionField->UpdateCollisionField(_GameState._pawnArray[i]);
-		}
-		///
-	}
-
 }
 
 void Game::UpdateWidget()
@@ -164,15 +111,16 @@ void Game::PushGameState()
 {
 	if (WAIT) {
 		HOLD = true;
+		GameState temp;
 		for (int i = 0; i < GameState::GAMESIZE; i++) {
-			Buffer._pawnArray[i] = _GameState._pawnArray[i];
-			Buffer._pawnSizeH[i] = _GameState._pawnSizeH[i];
-			Buffer._pawnSizeW[i] = _GameState._pawnSizeW[i];
-			Buffer._pawnCentre[i] = _GameState._pawnCentre[i];
-			Buffer._pawnColour[i] = _GameState._pawnColour[i];
-
-			Buffer._widgetArray[i] = _GameState._widgetArray[i];
+			temp._pawnArray[i] = _GameState._pawnArray[i];
+			temp._pawnSizeH[i] = _GameState._pawnSizeH[i];
+			temp._pawnSizeW[i] = _GameState._pawnSizeW[i];
+			temp._pawnCentre[i] = _GameState._pawnCentre[i];
+			temp._pawnColour[i] = _GameState._pawnColour[i];
+			temp._widgetArray[i] = _GameState._widgetArray[i];
 		}
+		Buffer = temp;
 		HOLD = false;
 	}
 }
@@ -181,15 +129,9 @@ void Game::PushFrame()
 {
 	WAIT = true;
 	gfx.BeginFrame();
-//	DrawCollisionField();
+//	_GameState.DrawCollisionField()->DrawField(wnd , gfx);
 	for (int i = 1; i < Buffer.GAMESIZE; i++) {
 		if (Buffer._pawnArray[i] != NULL) {
-			//if (Buffer._pawnSizeW[i] < Buffer._pawnSizeH[i]) {
-			//	gfx.DrawCrosshair(Buffer._pawnCentre[i].x, Buffer._pawnCentre[i].y, Buffer._pawnSizeH[i], Buffer._pawnColour[i]);
-			//}
-			//else {
-			//	gfx.DrawCrosshair(Buffer._pawnCentre[i].x, Buffer._pawnCentre[i].y, Buffer._pawnSizeW[i], Buffer._pawnColour[i]);
-			//}
 			gfx.DrawRectangle(Buffer._pawnCentre[i].x, Buffer._pawnCentre[i].y, Buffer._pawnSizeW[i], Buffer._pawnSizeH[i],  Buffer._pawnColour[i]);
 		}
 	}
@@ -203,29 +145,5 @@ void Game::PushFrame()
 
 	gfx.EndFrame();
 	WAIT = false;
-}
-
-
-
-
-
-
-
-bool Game::CheckForOverlap(int xcentre1, int ycentre1, int size1, int xcentre2, int ycentre2, int size2)
-{
-	return ((xcentre1 + (size1 / 2)) >= (xcentre2 - (size2 / 2)) &&
-			(xcentre1 - (size1 / 2)) <= (xcentre2 + (size2 / 2)) &&
-			(ycentre1 + (size1 / 2)) >= (ycentre2 - (size2 / 2)) &&
-			(ycentre1 - (size1 / 2)) <= (ycentre2 + (size2 / 2)));
-}
-
-bool Game::CheckForScreenBoundaryTouch(int scentre, int size, int sboundary)
-{
-	return ((scentre - (size / 2)) > 0 && (scentre + (size / 2)) < sboundary);
-}
-
-void Game::DrawCollisionField()
-{
-	_CollisionField->DrawField(wnd , gfx);
 }
 
