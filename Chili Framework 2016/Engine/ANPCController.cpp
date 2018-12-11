@@ -1,4 +1,5 @@
 #include "ANPCController.h"
+#include "Pawn.h"
 #include <cmath>
 
 

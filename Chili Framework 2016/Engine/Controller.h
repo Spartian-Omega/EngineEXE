@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Pawn.h"
+
 #include "MainWindow.h"
 #include <string>
 #include <sstream>

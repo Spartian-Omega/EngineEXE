@@ -1,5 +1,5 @@
 #include "APlayerController.h"
-
+#include "Pawn.h"
 
 
 APlayerController::APlayerController(Pawn * pawn, class MainWindow & wnd) : Controller(pawn) , wnd(wnd)

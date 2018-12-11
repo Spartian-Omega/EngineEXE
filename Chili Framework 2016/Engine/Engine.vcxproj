@@ -138,8 +138,10 @@
   <ItemGroup>
     <ClInclude Include="ANPCController.h" />
     <ClInclude Include="APlayerController.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="ChiliException.h" />
     <ClInclude Include="ChiliWin.h" />
+    <ClInclude Include="Circle.h" />
     <ClInclude Include="CollisionField.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="Controller.h" />
@@ -149,15 +151,24 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="HitBox.h" />
     <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="MainWindow.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Pawn.h" />
+    <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Shape.h" />
+    <ClInclude Include="Square.h" />
+    <ClInclude Include="Widget.h" />
     <ClInclude Include="_2D_Vector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ANPCController.cpp" />
     <ClCompile Include="APlayerController.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Circle.cpp" />
     <ClCompile Include="CollisionField.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="DXErr.cpp" />
@@ -166,10 +177,17 @@
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="HitBox.cpp" />
     <ClCompile Include="Keyboard.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Pawn.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="Shape.cpp" />
+    <ClCompile Include="Square.cpp" />
+    <ClCompile Include="Widget.cpp" />
     <ClCompile Include="_2D_Vector.cpp" />
   </ItemGroup>
   <ItemGroup>

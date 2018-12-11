@@ -22,6 +22,8 @@
 #include <chrono>
 #include "MainWindow.h"
 #include "Game.h"
+#include "Widget.h"
+#include "Button.h"
 
 
 Game::Game(MainWindow& wnd)
@@ -46,6 +48,9 @@ Game::Game(MainWindow& wnd)
 	_cycleInterval = 0;
 	DRAW = true;
 	WAIT = false;
+
+	_CurrentLevel = new Menu(_GameState);
+
 }
 
 Game::~Game()
@@ -59,7 +64,10 @@ void Game::Go()
 	//
 	auto start = std::chrono::system_clock::now();
 
+	_CurrentLevel->LevelGo();
+
 	/// Test Spawner
+	/*
 	if (wnd.kbd.KeyIsPressed(VK_CONTROL)) {
 
 		for (int i = 1; i <= _GameState.GAMESIZE; i++) {
@@ -73,11 +81,14 @@ void Game::Go()
 
 	}
 	///
+	*/
 
 	UpdateModel();
 
+	UpdateWidget();
+
 	/// Push Game State to Buffer
-		PushGameState();
+	PushGameState();
 
 	///
 
@@ -90,10 +101,10 @@ void Game::Go()
 
 
 
-	_cycleInterval = elapsed_seconds.count();
-	_debug_wstream = std::to_wstring(_cycleInterval);
-	_debug_wstream = L"Cycle Interval = " + _debug_wstream + L"\n";
-	OutputDebugString(_debug_wstream.c_str());
+	//_cycleInterval = elapsed_seconds.count();
+	//_debug_wstream = std::to_wstring(_cycleInterval);
+	//_debug_wstream = L"Cycle Interval = " + _debug_wstream + L"\n";
+	//OutputDebugString(_debug_wstream.c_str());
 }
 
 void Game::UpdateModel()
@@ -124,6 +135,31 @@ void Game::UpdateModel()
 
 }
 
+void Game::UpdateWidget()
+{
+	_2D_Point mousePosition(0, 0);
+	if (wnd.mouse.LeftIsPressed()) {
+		mousePosition.x = wnd.mouse.GetPosX();
+		mousePosition.y = wnd.mouse.GetPosY();
+
+		std::wstring mx , my;
+		mx = std::to_wstring(mousePosition.x);
+		my = std::to_wstring(mousePosition.y);
+		_debug_wstream = L"Mouse x (" + mx + L") Mouse y (" + my + L")\n";
+		OutputDebugString(_debug_wstream.c_str());
+	//
+		for (int i = 0; i < 100; i++) {		
+			Button *bptr = dynamic_cast<Button*>(_GameState._widgetArray[i]);
+			if (bptr != NULL) {
+				bptr->QueryHit(mousePosition);
+			}
+		}
+	}
+	//
+
+	//
+}
+
 void Game::PushGameState()
 {
 	if (WAIT) {
@@ -134,6 +170,8 @@ void Game::PushGameState()
 			Buffer._pawnSizeW[i] = _GameState._pawnSizeW[i];
 			Buffer._pawnCentre[i] = _GameState._pawnCentre[i];
 			Buffer._pawnColour[i] = _GameState._pawnColour[i];
+
+			Buffer._widgetArray[i] = _GameState._widgetArray[i];
 		}
 		HOLD = false;
 	}
@@ -156,9 +194,18 @@ void Game::PushFrame()
 		}
 	}
 	gfx.DrawCBox(Buffer._pawnCentre[0].x, Buffer._pawnCentre[0].y, Buffer._pawnSizeW[0], Buffer._pawnColour[0]);
+
+	for (int i = 0; i < 100; i++) {
+		if (Buffer._widgetArray[i] != NULL) {
+			Buffer._widgetArray[i]->Draw(gfx);
+		}
+	}
+
 	gfx.EndFrame();
 	WAIT = false;
 }
+
+
 
 
 

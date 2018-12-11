@@ -7,6 +7,9 @@ struct _2D_Point
 	double x;
 	double y;
 
+	_2D_Point() { ; }
+	_2D_Point(double x, double y) : x(x), y(y) { ; }
+
 	_2D_Point & operator-(const _2D_Point & rhs) {
 		_2D_Point result;
 		result.x = x - rhs.x;

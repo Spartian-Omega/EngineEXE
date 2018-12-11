@@ -29,6 +29,9 @@
 
 #include "GameState.h"
 
+#include "Level.h"
+#include "Menu.h"
+
 #include "APlayerController.h"
 #include "ANPCController.h"
 #include "Pawn.h"
@@ -55,6 +58,8 @@ public:
 private:
 	/********************************/
 	/*  User Functions              */
+	void UpdateWidget();
+
 
 	bool CheckForOverlap(const int xcentre1, const int ycentre1, const int size1, const int xcentre2, const int ycentre2, const int size2);
 	bool CheckForScreenBoundaryTouch(const int scentre, const int size, const int sboundary);
@@ -76,12 +81,14 @@ private:
 
 	GameState _GameState;
 	GameState Buffer;
+
+	Level * _CurrentLevel;
+
 protected:
 	/********************************/
 	/*  User Variables              */
 
 	Controller * _PlayerController;
 	Controller * _ControllerArray[GameState::GAMESIZE];
-
 	/********************************/
 };

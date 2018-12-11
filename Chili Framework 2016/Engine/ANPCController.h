@@ -18,4 +18,3 @@ protected:
 
 	double _cTimer;
 };
-

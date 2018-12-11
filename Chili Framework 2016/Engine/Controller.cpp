@@ -1,4 +1,5 @@
 #include "Controller.h"
+#include "Pawn.h"
 #include "MainWindow.h"
 
 
