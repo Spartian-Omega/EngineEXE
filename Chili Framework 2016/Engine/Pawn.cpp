@@ -1,23 +1,14 @@
 #include "Pawn.h"
+#include "Graphics.h"
 
-
-
-Pawn::Pawn(int x, int y, int sizeW, int sizeH)
+Pawn::Pawn(_2D_Point p, Shape * s) : _centre(p) , _shape(s)
 {
 	////////////////
 	_destroy = false;
 	////////////////
-
-	_centre.x = x;
-	_centre.y = y;
-	_sizeH = sizeH;
-	_sizeW = sizeW;
-	MyHitBox.Set(_centre, _sizeW, _sizeH);
 	
-	_path.p1.x = x;
-	_path.p1.y = y;
-	_path.p2.x = x;
-	_path.p2.y = y;
+	_path.p1 = p;
+	_path.p2 = p;
 
 	_areaFriction = 0.05;
 	_dx = 0; _dy = 0;
@@ -33,6 +24,11 @@ Pawn::Pawn(int x, int y, int sizeW, int sizeH)
 Pawn::~Pawn()
 {
 
+}
+
+void Pawn::Draw(Graphics & gfx)
+{
+	_shape->Draw(gfx, _centre);
 }
 
 void Pawn::AssignController(Controller * controller)
@@ -123,11 +119,6 @@ void Pawn::MoveVertical(int direction, double dt)
 	}
 }
 
-void Pawn::SetColour(Color c)
-{
-	_c = c;
-}
-
 void Pawn::UpdatePawn()
 {
 	_path.p1.x = _path.p2.x;
@@ -144,7 +135,7 @@ void Pawn::UpdatePawn()
 	else if (_dy < 0) {
 		_centre.y += _dy;
 	}
-	_2D_Point point = MyHitBox.ClampToMoveableArea();
+	_2D_Point point = _hbox.ClampToMoveableArea(_centre, QuerySizeW(), QuerySizeH());
 	if ((_centre.x)!= point.x || (_centre.y != point.y)){
 		_centre.x = point.x;
 		_centre.y = point.y;
@@ -153,21 +144,6 @@ void Pawn::UpdatePawn()
 	}
 	_path.p2.x = _centre.x;
 	_path.p2.y = _centre.y;
-}
-
-int Pawn::QuerySizeH()
-{
-	return _sizeH;
-}
-
-int Pawn::QuerySizeW()
-{
-	return _sizeW;
-}
-
-Color Pawn::QueryColour()
-{
-	return _c;
 }
 
 void Pawn::collisionDetected(Pawn * collidingPawn)
@@ -180,7 +156,3 @@ void Pawn::collisionDetected(Pawn * collidingPawn)
 	}
 }
 
-_2D_Point Pawn::QueryPosition()
-{
-	return _centre;
-}

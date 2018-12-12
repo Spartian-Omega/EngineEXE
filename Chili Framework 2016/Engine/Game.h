@@ -65,7 +65,8 @@ private:
 	/********************************/
 public:
 	bool DRAW;
-	bool WAIT;
+	bool WAIT1;
+	bool WAIT2;
 	bool HOLD;
 private:
 	MainWindow& wnd;

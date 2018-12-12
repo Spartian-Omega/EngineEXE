@@ -18,6 +18,8 @@ UserInterface::~UserInterface()
 {
 }
 
+
+
 void UserInterface::UIGo()
 {
 	_2D_Point mousePosition(0, 0);

@@ -46,5 +46,5 @@ void Button::Release()
 
 void Button::Draw(Graphics & gfx)
 {
-	gfx.DrawRectangle(_position.x, _position.y, _shape->QueryHeight(), _shape->QueryHeight(), _colour);
+	_shape->Draw(gfx, _position);
 }

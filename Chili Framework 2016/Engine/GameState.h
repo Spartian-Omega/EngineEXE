@@ -4,7 +4,6 @@
 #include "Controller.h"
 #include "Pawn.h"
 #include "_2D_Vector.h"
-#include "Menu.h"
 #include "Widget.h"
 #include "CollisionField.h"
 
@@ -13,33 +12,38 @@
 
 class GameState
 {
-	friend class Game;
-	friend class Match;
-	friend struct GSData;
+
 public:
 	GameState();
 	~GameState();
 
-protected:
+
 	static int const GMESZE = 100; // Amount of Pawns in the Game
 
 	Pawn * _pwnArry[GMESZE] = { nullptr };
 	Controller * _CtrlArry[GMESZE] = { nullptr };
-	CollisionField *_CollisionField;
+	CollisionField *_CollisionField = nullptr;
 };
 
 struct GSData {
 
 	Pawn * _pwnArry[GameState::GMESZE] = { nullptr };
 	Controller * _CtrlArry[GameState::GMESZE] = { nullptr };
-	CollisionField *_CollisionField;
+	CollisionField *_CollisionField = nullptr;
+
+	void Clear() {
+		for (int i = 0; i < GameState::GMESZE; i++) {
+			if (_pwnArry[i] != nullptr) {
+				delete _pwnArry[i];
+				_pwnArry[i] = nullptr;
+			}
+		}
+	}
 
 	void operator = (const GameState & GS) {
 		for (int i = 0; i < GameState::GMESZE; i++) {
 			if (GS._pwnArry[i] != nullptr) {
-				Pawn * nptr;
-				*nptr = *GS._pwnArry[i];
-				_pwnArry[i] = nptr;
+				_pwnArry[i] = new Pawn(*GS._pwnArry[i]);
 			}
 		}
 	}

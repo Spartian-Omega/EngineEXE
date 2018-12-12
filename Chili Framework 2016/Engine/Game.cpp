@@ -33,17 +33,19 @@ Game::Game(MainWindow& wnd)
 {
 
 	_cycleInterval = 0;
-	WAIT = false;
+	WAIT1 = false;
+	WAIT2 = false;
 
 	_StgFlw.CStge = new Menu(wnd);
 	_StgFlw.NStge = new Match(wnd);
 
+	DRAW = true;
 }
 
 Game::~Game()
 {
 	DRAW = false;
-	while(WAIT){}
+	while(WAIT1){}
 }
 
 void Game::Go()
@@ -51,15 +53,25 @@ void Game::Go()
 	//
 	auto start = std::chrono::system_clock::now();
 
-	_StgFlw.StagePathGo();
-	_StgFlw.CStge->StageGo(_cycleInterval);
+	if (_StgFlw.CStge->NextLevel()) {
+		_StgFlw.PStge = _StgFlw.CStge;
+		_StgFlw.CStge = _StgFlw.NStge;
+	}
+	else {
+		_StgFlw.CStge->StageGo(_cycleInterval);
+	}
 
 	/// Push Game State to Buffer
-
-		HOLD = true;
+	HOLD = true;
+	if (!WAIT1 && WAIT2) {
 		PushGameState();
 		PushUI();
-		HOLD = false;
+		WAIT2 = false;
+	}
+	else {
+		WAIT2 = true;
+	}
+	HOLD = false;
 		///
 
 	auto end = std::chrono::system_clock::now();
@@ -69,7 +81,7 @@ void Game::Go()
 	//_debug_wstream = std::to_wstring(_cycleInterval);
 	//_debug_wstream = L"Cycle Interval = " + _debug_wstream + L"\n";
 	//OutputDebugString(_debug_wstream.c_str());
-	DRAW = true;
+	
 }
 
 void Game::PushUI()
@@ -81,23 +93,23 @@ void Game::PushUI()
 
 void Game::PushGameState()
 {
-
-
-
+	//
+	_BST = _StgFlw.CStge->GetGameState();
+	//
 }
 
 void Game::PushFrame()
 {
-	WAIT = true;
+	WAIT1 = true;
 	gfx.BeginFrame();
 ////	_GameState.DrawCollisionField()->DrawField(wnd , gfx);
-//	for (int i = 1; i < Buffer.GAMESIZE; i++) {
-//		if (Buffer._pwnArry[i] != nullptr) {
-//			gfx.DrawRectangle(Buffer._pawnCentre[i].x, Buffer._pawnCentre[i].y, Buffer._pawnSizeW[i], Buffer._pawnSizeH[i],  Buffer._pawnColour[i]);
-//		}
-//	}
-//	gfx.DrawCBox(Buffer._pawnCentre[0].x, Buffer._pawnCentre[0].y, Buffer._pawnSizeW[0], Buffer._pawnColour[0]);
-//
+	for (int i = 0; i < GameState::GMESZE; i++) {
+		if (_BST._pwnArry[i] != nullptr) {
+			_BST._pwnArry[i]->Draw(gfx);
+		}
+	}
+
+
 	//Draw UI
 
 	for (int i = 0; i < UserInterface::WAMNT; i++) {
@@ -110,6 +122,8 @@ void Game::PushFrame()
 	}
 
 	gfx.EndFrame();
-	WAIT = false;
+	_BUI.Clear();
+	_BST.Clear();
+	WAIT1 = false;
 }
 

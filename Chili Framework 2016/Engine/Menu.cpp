@@ -25,14 +25,6 @@ Menu::~Menu()
 void Menu::StageGo(double dt)
 {
 	UpdateUI(dt);
-	if (_UI._Buttons[0].QueryHit()) {
-		_nxtStg = true;
-		//_UI.IsHost(true);
-	}
-	if (_UI._Buttons[1].QueryHit()) {
-		_nxtStg = true;
-		//_UI.IsHost(false);
-	}
 }
 
 void Menu::UpdateUI(double dt)
@@ -42,6 +34,7 @@ void Menu::UpdateUI(double dt)
 		if (_UI._Buttons[0].QueryHit()) {
 			_UI._Buttons[0].SetColour(Color(0, 255, 0));
 			_UI._Buttons[0].Release();
+			_STAGEEND = true;
 		}
 		else {
 			_UI._Buttons[0].SetColour(Color(255, 0, 0));
@@ -51,6 +44,7 @@ void Menu::UpdateUI(double dt)
 		if (_UI._Buttons[1].QueryHit()) {
 			_UI._Buttons[1].SetColour(Color(0, 255, 0));
 			_UI._Buttons[1].Release();
+			_STAGEEND = true;
 		}
 		else {
 			_UI._Buttons[1].SetColour(Color(0, 0, 255));

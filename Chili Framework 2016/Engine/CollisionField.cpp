@@ -3,11 +3,7 @@
 
 CollisionField::CollisionField()
 {
-	for (int k = 0; k <= 599; k++) {
-		for (int i = 0; i <= 799; i++) {
-			_pwnArry[k][i] = NULL;
-		}
-	}
+
 }
 
 
@@ -29,31 +25,31 @@ void CollisionField::UpdateCollisionField(class Pawn * pawn)
 	int edgeRight = ppx + psw / 2;
 
 		for (int i = 0; i < psw; i++) {
-			if (_pwnArry[edgeTop][edgeLeft + i + 1] != NULL) {
-				pawn->collisionDetected(_pwnArry[edgeTop][edgeLeft + i + 1]);
+			if (_CllArry[edgeTop][edgeLeft + i + 1] != nullptr) {
+				pawn->collisionDetected(_CllArry[edgeTop][edgeLeft + i + 1]);
 			}
 			else {
-				_pwnArry[edgeTop][edgeLeft + i + 1] = pawn;
+				_CllArry[edgeTop][edgeLeft + i + 1] = pawn;
 			}
-			if (_pwnArry[edgeBottom][edgeRight - i - 1] != NULL) {
-				pawn->collisionDetected(_pwnArry[edgeBottom][edgeRight - i - 1]);
+			if (_CllArry[edgeBottom][edgeRight - i - 1] != nullptr) {
+				pawn->collisionDetected(_CllArry[edgeBottom][edgeRight - i - 1]);
 			}
 			else {
-				_pwnArry[edgeBottom][edgeRight - i - 1] = pawn;
+				_CllArry[edgeBottom][edgeRight - i - 1] = pawn;
 			}		
 		}
 		for (int i = 0; i < psh; i++) {
-			if (_pwnArry[edgeTop + i][edgeLeft] != NULL) {
-				pawn->collisionDetected(_pwnArry[edgeTop + i][edgeLeft]);
+			if (_CllArry[edgeTop + i][edgeLeft] != nullptr) {
+				pawn->collisionDetected(_CllArry[edgeTop + i][edgeLeft]);
 			}
 			else {
-				_pwnArry[edgeTop + i][edgeLeft] = pawn;
+				_CllArry[edgeTop + i][edgeLeft] = pawn;
 			}
-			if (_pwnArry[edgeBottom - i][edgeRight] != NULL) {
-				pawn->collisionDetected(_pwnArry[edgeBottom - i][edgeRight]);
+			if (_CllArry[edgeBottom - i][edgeRight] != nullptr) {
+				pawn->collisionDetected(_CllArry[edgeBottom - i][edgeRight]);
 			}
 			else {
-				_pwnArry[edgeBottom - i][edgeRight] = pawn;
+				_CllArry[edgeBottom - i][edgeRight] = pawn;
 			}
 		}
 }
@@ -62,8 +58,8 @@ void CollisionField::EmptyCollisionField()
 {
 	for (int k = 0; k <= 599; k++) {
 		for (int i = 0; i <= 799; i++) {
-			_oldArray[k][i] = _pwnArry[k][i];
-				_pwnArry[k][i] = NULL;
+			_oldArray[k][i] = _CllArry[k][i];
+				_CllArry[k][i] = nullptr;
 		}
 	}
 }
@@ -72,7 +68,7 @@ void CollisionField::DrawField( MainWindow & wnd , Graphics & gfx)
 {
 	for (int k = 0; k <= 599; k++) {
 		for (int i = 0; i <= 799; i++) {
-			if (_oldArray[k][i] == NULL) {
+			if (_oldArray[k][i] == nullptr) {
 
 			}
 			else {

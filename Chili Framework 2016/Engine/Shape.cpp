@@ -22,3 +22,7 @@ int Shape::QueryHeight()
 	return 0;
 }
 
+void Shape::Draw(Graphics & gfx, _2D_Point p)
+{
+}
+

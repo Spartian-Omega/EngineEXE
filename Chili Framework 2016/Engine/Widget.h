@@ -14,8 +14,8 @@ public:
 	void SetPosition(_2D_Point p) { _position = p; }
 	void SetShape(Shape * s) { _shape = s; }
 
-	Color GetColour(){ return _colour; }
-	void SetColour(Color c){ _colour = c; }
+	Color GetColour(){ return _shape->GetColour(); }
+	void SetColour(Color c){ _shape->SetColour(c); }
 
 	void SetVisibility(bool b) { _isVisible = b; }
 	bool IsVisible() { return _isVisible; }
@@ -27,8 +27,6 @@ protected:
 	bool _isVisible = false;
 
 	_2D_Point _position;
-	Shape * _shape = nullptr;
-
-	Color _colour = Color(255, 255, 255);
+	Shape * _shape;
 };
 

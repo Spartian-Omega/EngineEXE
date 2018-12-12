@@ -18,7 +18,7 @@ public:
 
 
 private:
-	Pawn * _pwnArry[600][800];
-	Pawn * _oldArray[600][800];
+	Pawn * _CllArry[600][800] = { nullptr };
+	Pawn * _oldArray[600][800] = { nullptr };
 };
 

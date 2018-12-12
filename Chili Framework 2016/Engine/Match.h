@@ -1,6 +1,5 @@
 #pragma once
 #include "Stage.h"
-#include "GameState.h"
 #include "APlayerController.h"
 
 
@@ -16,7 +15,7 @@ public:
 
 private:
 
-	GameState _State;
+
 	Pawn * _Player;
 	APlayerController * _PlayerController;
 

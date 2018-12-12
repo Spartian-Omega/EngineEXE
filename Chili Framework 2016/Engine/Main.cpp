@@ -46,11 +46,11 @@ DWORD WINAPI GRAPHICSTHREAD(__in LPVOID lpParameter)
 	//OutputDebugString(L"\n");
 
 	//wait for graphics
-	while (!(pGraphicsThreadData->GameAddress->DRAW)) {}
+	//	while (!(pGraphicsThreadData->GameAddress->DRAW)) {}
 	while (pGraphicsThreadData->GameAddress->DRAW){
 		double _frameInterval = 0;
 		auto start = std::chrono::system_clock::now();
-		if (pGraphicsThreadData->GameAddress->HOLD) {
+		if (pGraphicsThreadData->GameAddress->HOLD || pGraphicsThreadData->GameAddress->WAIT2) {
 		}
 		else {
 			pGraphicsThreadData->GameAddress->PushFrame();

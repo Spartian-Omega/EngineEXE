@@ -3,28 +3,32 @@
 #include "Controller.h"
 #include "_2D_Vector.h"
 #include "Colors.h"
+#include "Shape.h"
 #include <string>
 #include <sstream>
 
-
+class Graphics;
 
 class Pawn
 {
 public:
-	Pawn(int x, int y, int sizeH, int sizeW);
+	Pawn(_2D_Point p, Shape * s);
 	~Pawn();
+
+	void Draw(Graphics & gfx);
 
 	void AssignController(class Controller * controller);
 	void MoveHorizontal(int direction, double dt);
 	void MoveVertical(int direction, double dt);
 
-	void SetColour(class Color c);
+	void SetColour(Color c) { _shape->SetColour(c); }
 
 	void UpdatePawn();
-	int QuerySizeH();
-	int QuerySizeW();
-	_2D_Point QueryPosition();
-	Color QueryColour();
+
+	int QuerySizeH() { return _shape->QueryHeight(); }
+	int QuerySizeW() { return _shape->QueryWidth(); }
+	_2D_Point QueryPosition(){ return _centre; }
+	Color QueryColour(){ return _shape->GetColour(); }
 
 	void collisionDetected(class Pawn * collidingPawn);
 
@@ -36,18 +40,17 @@ public:
 public:
 	bool _destroy;
 
-private:
+protected:
 
 	std::wstring _debug_wstream;
 
-	HitBox MyHitBox;
+
 	Controller * MyController;
 
 	//Physical Properties
 	_2D_Point _centre;
-	int	  _sizeH, _sizeW;
-	Color _c;
-	std::wstring _shape;
+	Shape * _shape;
+	HitBox _hbox;
 
 	//Dynamic Properties
 	double _dx, _dy;

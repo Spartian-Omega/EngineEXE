@@ -7,12 +7,7 @@ class HitBox
 public:
 	HitBox();
 	~HitBox();
-	void Set(_2D_Point & centre, int & sizeW, int & sizeH);
 
-	_2D_Point ClampToMoveableArea();
-
-private:
-	double * _x, * _y;
-	int	  _sizeH = 0, _sizeW = 0;
+	_2D_Point ClampToMoveableArea(_2D_Point c, int w, int h);
 };
 

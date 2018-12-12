@@ -1,12 +1,14 @@
 #pragma once
 
+
+#include "GameState.h"
 #include "UserInterface.h"
+
 class MainWindow;
 
 
 class Stage
 {
-	friend struct StagePath;
 public:
 	Stage(MainWindow & wnd);
 	virtual ~Stage();
@@ -14,25 +16,24 @@ public:
 	virtual void StageGo(double dt);
 	virtual void UpdateUI(double dt);
 
+	bool NextLevel() { return _STAGEEND; }
+
 	UserInterface GetUI() { return _UI; }
+	GameState GetGameState() { return _State; }
 
 protected:
-	bool _nxtStg = false;
+
+	bool _STAGEEND = false;
 	UserInterface _UI;
+	GameState _State;
 
 };
 
 
 struct StagePath
 {
-	Stage * CStge = nullptr;
-	Stage * NStge = nullptr;
-
-	void StagePathGo() {
-		if (CStge->_nxtStg) {
-			delete CStge;
-			CStge = NStge;
-		}
-	}
+	Stage * CStge;
+	Stage * NStge;
+	Stage * PStge;
 };
 

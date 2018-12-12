@@ -13,33 +13,25 @@ HitBox::~HitBox()
 
 }
 
-void HitBox::Set(_2D_Point & centre, int & sizeW, int & sizeH)
-{
-	_x = &centre.x;
-	_y = &centre.y;
-	_sizeH = sizeH;
-	_sizeW = sizeW;
-}
 
-
-_2D_Point HitBox::ClampToMoveableArea()
+_2D_Point HitBox::ClampToMoveableArea(_2D_Point c, int w, int h)
 {
-	double x = *_x , y = * _y;
+	double x = c.x , y = c.y;
 	_2D_Point point;
-	if ((*_x - (_sizeW / 2)) <= 0) {
-		x = 2 + (_sizeW / 2);
+	if ((c.x - (w / 2)) <= 0) {
+		x = 2 + (w / 2);
 	}
-	else if ((*_x + (_sizeW / 2)) >= 798) {
-		x = 798 - (_sizeW / 2);
+	else if ((c.x + (w / 2)) >= 798) {
+		x = 798 - (w / 2);
 	}
 	else{
 		
 	}
-	if ((*_y - (_sizeH / 2)) <= 0) {
-		y = 2 + (_sizeH / 2);
+	if ((c.y - (h / 2)) <= 0) {
+		y = 2 + (h / 2);
 	}
-	else if ((*_y + (_sizeH / 2)) >= 598) {
-		y = 598 - (_sizeH / 2);
+	else if ((c.y + (h / 2)) >= 598) {
+		y = 598 - (h / 2);
 	}
 	else {
 		
