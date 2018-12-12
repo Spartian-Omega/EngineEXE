@@ -5,7 +5,7 @@ CollisionField::CollisionField()
 {
 	for (int k = 0; k <= 599; k++) {
 		for (int i = 0; i <= 799; i++) {
-			_pawnArray[k][i] = NULL;
+			_pwnArry[k][i] = NULL;
 		}
 	}
 }
@@ -29,31 +29,31 @@ void CollisionField::UpdateCollisionField(class Pawn * pawn)
 	int edgeRight = ppx + psw / 2;
 
 		for (int i = 0; i < psw; i++) {
-			if (_pawnArray[edgeTop][edgeLeft + i + 1] != NULL) {
-				pawn->collisionDetected(_pawnArray[edgeTop][edgeLeft + i + 1]);
+			if (_pwnArry[edgeTop][edgeLeft + i + 1] != NULL) {
+				pawn->collisionDetected(_pwnArry[edgeTop][edgeLeft + i + 1]);
 			}
 			else {
-				_pawnArray[edgeTop][edgeLeft + i + 1] = pawn;
+				_pwnArry[edgeTop][edgeLeft + i + 1] = pawn;
 			}
-			if (_pawnArray[edgeBottom][edgeRight - i - 1] != NULL) {
-				pawn->collisionDetected(_pawnArray[edgeBottom][edgeRight - i - 1]);
+			if (_pwnArry[edgeBottom][edgeRight - i - 1] != NULL) {
+				pawn->collisionDetected(_pwnArry[edgeBottom][edgeRight - i - 1]);
 			}
 			else {
-				_pawnArray[edgeBottom][edgeRight - i - 1] = pawn;
+				_pwnArry[edgeBottom][edgeRight - i - 1] = pawn;
 			}		
 		}
 		for (int i = 0; i < psh; i++) {
-			if (_pawnArray[edgeTop + i][edgeLeft] != NULL) {
-				pawn->collisionDetected(_pawnArray[edgeTop + i][edgeLeft]);
+			if (_pwnArry[edgeTop + i][edgeLeft] != NULL) {
+				pawn->collisionDetected(_pwnArry[edgeTop + i][edgeLeft]);
 			}
 			else {
-				_pawnArray[edgeTop + i][edgeLeft] = pawn;
+				_pwnArry[edgeTop + i][edgeLeft] = pawn;
 			}
-			if (_pawnArray[edgeBottom - i][edgeRight] != NULL) {
-				pawn->collisionDetected(_pawnArray[edgeBottom - i][edgeRight]);
+			if (_pwnArry[edgeBottom - i][edgeRight] != NULL) {
+				pawn->collisionDetected(_pwnArry[edgeBottom - i][edgeRight]);
 			}
 			else {
-				_pawnArray[edgeBottom - i][edgeRight] = pawn;
+				_pwnArry[edgeBottom - i][edgeRight] = pawn;
 			}
 		}
 }
@@ -62,8 +62,8 @@ void CollisionField::EmptyCollisionField()
 {
 	for (int k = 0; k <= 599; k++) {
 		for (int i = 0; i <= 799; i++) {
-			_oldArray[k][i] = _pawnArray[k][i];
-				_pawnArray[k][i] = NULL;
+			_oldArray[k][i] = _pwnArry[k][i];
+				_pwnArry[k][i] = NULL;
 		}
 	}
 }

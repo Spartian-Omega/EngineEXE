@@ -29,16 +29,14 @@
 Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
-	gfx(wnd),
-	_GameState()
+	gfx(wnd)
 {
 
 	_cycleInterval = 0;
-	DRAW = true;
 	WAIT = false;
 
-	_LevelPath.CurrentLevel = new Menu(_GameState);
-	_LevelPath.NextLevel = new TestLevel(_GameState, wnd);
+	_StgFlw.CStge = new Menu(wnd);
+	_StgFlw.NStge = new Match(wnd);
 
 }
 
@@ -53,93 +51,61 @@ void Game::Go()
 	//
 	auto start = std::chrono::system_clock::now();
 
-
-	_LevelPath.LevelPathGo();
-	_LevelPath.CurrentLevel->LevelGo(_cycleInterval);
-
-
-
-
-
-	UpdateWidget();
+	_StgFlw.StagePathGo();
+	_StgFlw.CStge->StageGo(_cycleInterval);
 
 	/// Push Game State to Buffer
-	PushGameState();
 
-	///
-
-
-
+		HOLD = true;
+		PushGameState();
+		PushUI();
+		HOLD = false;
+		///
 
 	auto end = std::chrono::system_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end - start;
-
-
 
 	_cycleInterval = elapsed_seconds.count();
 	//_debug_wstream = std::to_wstring(_cycleInterval);
 	//_debug_wstream = L"Cycle Interval = " + _debug_wstream + L"\n";
 	//OutputDebugString(_debug_wstream.c_str());
+	DRAW = true;
 }
 
-void Game::UpdateWidget()
+void Game::PushUI()
 {
-	_2D_Point mousePosition(0, 0);
-	if (wnd.mouse.LeftIsPressed()) {
-		mousePosition.x = wnd.mouse.GetPosX();
-		mousePosition.y = wnd.mouse.GetPosY();
-
-		std::wstring mx , my;
-		mx = std::to_wstring(mousePosition.x);
-		my = std::to_wstring(mousePosition.y);
-		_debug_wstream = L"Mouse x (" + mx + L") Mouse y (" + my + L")\n";
-		OutputDebugString(_debug_wstream.c_str());
 	//
-		for (int i = 0; i < 100; i++) {		
-			Button *bptr = dynamic_cast<Button*>(_GameState._widgetArray[i]);
-			if (bptr != NULL) {
-				bptr->QueryHit(mousePosition);
-			}
-		}
-	}
-	//
-
+	_BUI = _StgFlw.CStge->GetUI();
 	//
 }
 
 void Game::PushGameState()
 {
-	if (WAIT) {
-		HOLD = true;
-		GameState temp;
-		for (int i = 0; i < GameState::GAMESIZE; i++) {
-			temp._pawnArray[i] = _GameState._pawnArray[i];
-			temp._pawnSizeH[i] = _GameState._pawnSizeH[i];
-			temp._pawnSizeW[i] = _GameState._pawnSizeW[i];
-			temp._pawnCentre[i] = _GameState._pawnCentre[i];
-			temp._pawnColour[i] = _GameState._pawnColour[i];
-			temp._widgetArray[i] = _GameState._widgetArray[i];
-		}
-		Buffer = temp;
-		HOLD = false;
-	}
+
+
+
 }
 
 void Game::PushFrame()
 {
 	WAIT = true;
 	gfx.BeginFrame();
-//	_GameState.DrawCollisionField()->DrawField(wnd , gfx);
-	for (int i = 1; i < Buffer.GAMESIZE; i++) {
-		if (Buffer._pawnArray[i] != NULL) {
-			gfx.DrawRectangle(Buffer._pawnCentre[i].x, Buffer._pawnCentre[i].y, Buffer._pawnSizeW[i], Buffer._pawnSizeH[i],  Buffer._pawnColour[i]);
-		}
-	}
-	gfx.DrawCBox(Buffer._pawnCentre[0].x, Buffer._pawnCentre[0].y, Buffer._pawnSizeW[0], Buffer._pawnColour[0]);
+////	_GameState.DrawCollisionField()->DrawField(wnd , gfx);
+//	for (int i = 1; i < Buffer.GAMESIZE; i++) {
+//		if (Buffer._pwnArry[i] != nullptr) {
+//			gfx.DrawRectangle(Buffer._pawnCentre[i].x, Buffer._pawnCentre[i].y, Buffer._pawnSizeW[i], Buffer._pawnSizeH[i],  Buffer._pawnColour[i]);
+//		}
+//	}
+//	gfx.DrawCBox(Buffer._pawnCentre[0].x, Buffer._pawnCentre[0].y, Buffer._pawnSizeW[0], Buffer._pawnColour[0]);
+//
+	//Draw UI
 
-	for (int i = 0; i < 100; i++) {
-		if (Buffer._widgetArray[i] != NULL) {
-			Buffer._widgetArray[i]->Draw(gfx);
+	for (int i = 0; i < UserInterface::WAMNT; i++) {
+		if (_BUI.DWidgets[i].IsVisible()) {
+			_BUI.DWidgets[i].Draw(gfx);
+		}
+		if (_BUI.DButtons[i].IsVisible()) {
+			_BUI.DButtons[i].Draw(gfx);
 		}
 	}
 

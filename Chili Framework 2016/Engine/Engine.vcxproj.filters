@@ -25,11 +25,11 @@
     <Filter Include="Header Files\Widgets">
       <UniqueIdentifier>{f6009537-7619-44d6-aa4f-52223c9e0a5a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Levels">
-      <UniqueIdentifier>{32ab0fee-1bf0-43aa-a906-1554e87c375b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\ChilliFrameWork">
       <UniqueIdentifier>{ff52a6d0-6553-47de-a1e7-6a02e727947b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Stages">
+      <UniqueIdentifier>{32ab0fee-1bf0-43aa-a906-1554e87c375b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -81,17 +81,8 @@
     <ClInclude Include="Button.h">
       <Filter>Header Files\Widgets</Filter>
     </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Header Files\Levels</Filter>
-    </ClInclude>
-    <ClInclude Include="Level.h">
-      <Filter>Header Files\Levels</Filter>
-    </ClInclude>
-    <ClInclude Include="TestLevel.h">
-      <Filter>Header Files\Levels</Filter>
-    </ClInclude>
     <ClInclude Include="Menu.h">
-      <Filter>Header Files\Levels</Filter>
+      <Filter>Header Files\Stages</Filter>
     </ClInclude>
     <ClInclude Include="ChiliException.h">
       <Filter>Header Files\ChilliFrameWork</Filter>
@@ -116,6 +107,18 @@
     </ClInclude>
     <ClInclude Include="Graphics.h">
       <Filter>Header Files\ChilliFrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>Header Files\Stages</Filter>
+    </ClInclude>
+    <ClInclude Include="Match.h">
+      <Filter>Header Files\Stages</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UserInterface.h">
+      <Filter>Header Files\Widgets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -179,9 +182,6 @@
     <ClCompile Include="Circle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -191,7 +191,13 @@
     <ClCompile Include="Button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestLevel.cpp">
+    <ClCompile Include="Stage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Match.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInterface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

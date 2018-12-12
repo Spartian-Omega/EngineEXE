@@ -1,9 +1,15 @@
 #include "Button.h"
 #include "Square.h"
 
+#include "_2D_Vector.h"
+
 #include "Graphics.h"
 
 
+
+Button::Button()
+{
+}
 
 Button::Button(_2D_Point p) : Widget(p, new Square(100))
 {	

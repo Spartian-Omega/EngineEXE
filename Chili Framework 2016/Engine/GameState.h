@@ -14,31 +14,33 @@
 class GameState
 {
 	friend class Game;
-	friend class Menu;
-	friend class TestLevel;
+	friend class Match;
+	friend struct GSData;
 public:
 	GameState();
 	~GameState();
 
-	void IsHost(bool ishost) { isHost = ishost;	}
-	void SetHost() {}
-
 protected:
-	static int const GAMESIZE = 100; // Amount of Pawns in the Game
+	static int const GMESZE = 100; // Amount of Pawns in the Game
 
-	bool isHost = true;
-
-
-	Pawn * _pawnArray[GAMESIZE] = { nullptr };
-	int _pawnSizeW[GAMESIZE];
-	int _pawnSizeH[GAMESIZE];
-	_2D_Point _pawnCentre[GAMESIZE];
-	Color _pawnColour[GAMESIZE];
-
-	Controller * _ControllerArray[GAMESIZE] = { nullptr };
-
+	Pawn * _pwnArry[GMESZE] = { nullptr };
+	Controller * _CtrlArry[GMESZE] = { nullptr };
 	CollisionField *_CollisionField;
-
-	Widget * _widgetArray[100] = { nullptr };
 };
 
+struct GSData {
+
+	Pawn * _pwnArry[GameState::GMESZE] = { nullptr };
+	Controller * _CtrlArry[GameState::GMESZE] = { nullptr };
+	CollisionField *_CollisionField;
+
+	void operator = (const GameState & GS) {
+		for (int i = 0; i < GameState::GMESZE; i++) {
+			if (GS._pwnArry[i] != nullptr) {
+				Pawn * nptr;
+				*nptr = *GS._pwnArry[i];
+				_pwnArry[i] = nptr;
+			}
+		}
+	}
+};

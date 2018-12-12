@@ -29,9 +29,11 @@
 
 #include "GameState.h"
 
-#include "Level.h"
+#include "UserInterface.h"
+
+#include "Stage.h"
 #include "Menu.h"
-#include "TestLevel.h"
+#include "Match.h"
 
 #include "APlayerController.h"
 #include "ANPCController.h"
@@ -58,7 +60,7 @@ public:
 private:
 	/********************************/
 	/*  User Functions              */
-	void UpdateWidget();
+	void PushUI();
 
 	/********************************/
 public:
@@ -74,10 +76,10 @@ private:
 	double _cycleInterval;
 	std::wstring _debug_wstream;
 
-	GameState _GameState;
-	GameState Buffer;
+	GSData _BST; //Buffer GameState
+	UIData _BUI; //Buffer UI
 
-	LevelPath _LevelPath;
+	StagePath _StgFlw;
 
 protected:
 	/********************************/

@@ -6,6 +6,7 @@ class Button :
 	public Widget
 {
 public:
+	Button();
 	Button(_2D_Point p);
 	~Button();
 

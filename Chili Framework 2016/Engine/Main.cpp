@@ -46,6 +46,7 @@ DWORD WINAPI GRAPHICSTHREAD(__in LPVOID lpParameter)
 	//OutputDebugString(L"\n");
 
 	//wait for graphics
+	while (!(pGraphicsThreadData->GameAddress->DRAW)) {}
 	while (pGraphicsThreadData->GameAddress->DRAW){
 		double _frameInterval = 0;
 		auto start = std::chrono::system_clock::now();

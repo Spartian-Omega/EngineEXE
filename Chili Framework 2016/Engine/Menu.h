@@ -1,26 +1,21 @@
 #pragma once
 
-#include "Level.h"
-#include "Widget.h"
-#include "Button.h"
-#include "Shape.h"
+#include "Stage.h"
+
+
 
 
 class Menu :
-	public Level
+	public Stage
 {
 public:
-	Menu(class GameState & g);
+	Menu(MainWindow & wnd);
 	~Menu();
 	
-	void LevelGo(double dt);
+	void StageGo(double dt);
+	void UpdateUI(double dt);
 
 protected:
-	Widget * _Widgets[10] = { nullptr };
-	Button * _Buttons[10] = { nullptr };
-	bool _buttonPressed[10] = { 0 };
-
-
 
 };
 
