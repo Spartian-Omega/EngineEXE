@@ -40,7 +40,7 @@ DWORD WINAPI GRAPHICSTHREAD(__in LPVOID lpParameter)
 	PTHREADDATA pGraphicsThreadData;
 	pGraphicsThreadData = (PTHREADDATA)lpParameter;
 
-	//std::wstring _debug_wstream = std::to_wstring(GetCurrentThreadId());
+	std::wstring _debug_wstream = std::to_wstring(GetCurrentThreadId());
 	//OutputDebugString(L"Thread ID = ");
 	//OutputDebugString(_debug_wstream.c_str());
 	//OutputDebugString(L"\n");
@@ -60,10 +60,10 @@ DWORD WINAPI GRAPHICSTHREAD(__in LPVOID lpParameter)
 
 
 
-		//_frameInterval = elapsed_seconds.count();
-		//_debug_wstream = std::to_wstring(_frameInterval);
-		//_debug_wstream = L"Frame Interval = " + _debug_wstream + L"\n";
-		//OutputDebugString(_debug_wstream.c_str());
+		_frameInterval = elapsed_seconds.count();
+		_debug_wstream = std::to_wstring(_frameInterval);
+		_debug_wstream = L"Frame Interval = " + _debug_wstream + L"\n";
+		OutputDebugString(_debug_wstream.c_str());
 }
 	return 3;
 }

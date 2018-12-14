@@ -66,6 +66,7 @@ void Game::Go()
 	if (!gLatch && bLatch) {
 		PushGameState();
 		PushUI();
+		PushMap();
 		bLatch = false;
 	}
 	else {
@@ -77,10 +78,12 @@ void Game::Go()
 	auto end = std::chrono::system_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end - start;
 
-	//_cycleInterval = elapsed_seconds.count();
-	//_debug_wstream = std::to_wstring(_cycleInterval);
-	//_debug_wstream = L"Cycle Interval = " + _debug_wstream + L"\n";
-	//OutputDebugString(_debug_wstream.c_str());
+	_cycleInterval = elapsed_seconds.count();
+
+
+	_debug_wstream = std::to_wstring(_cycleInterval);
+	_debug_wstream = L"Cycle Interval = " + _debug_wstream + L"\n";
+	OutputDebugString(_debug_wstream.c_str());
 	
 }
 
@@ -98,10 +101,21 @@ void Game::PushGameState()
 	//
 }
 
+void Game::PushMap()
+{
+	_BMP = _StgFlw.CStge->GetMap();
+}
+
 void Game::PushFrame()
 {
 	gLatch = true;
 	gfx.BeginFrame();
+
+	//
+	_BMP.Draw(gfx);
+	//
+
+
 ////	_GameState.DrawCollisionField()->DrawField(wnd , gfx);
 	for (int i = 0; i < GameState::GMESZE; i++) {
 		if (_BST._pwnArry[i] != nullptr) {

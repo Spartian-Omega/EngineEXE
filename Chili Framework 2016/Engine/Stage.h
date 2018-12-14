@@ -3,6 +3,7 @@
 
 #include "GameState.h"
 #include "UserInterface.h"
+#include "Map.h"
 
 class MainWindow;
 
@@ -20,12 +21,14 @@ public:
 
 	UserInterface GetUI() { return _UI; }
 	GameState GetGameState() { return _State; }
+	Map GetMap() { return _Map; }
 
 protected:
 
 	bool _STAGEEND = false;
 	UserInterface _UI;
 	GameState _State;
+	Map _Map;
 
 };
 

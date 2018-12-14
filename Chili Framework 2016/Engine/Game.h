@@ -51,16 +51,16 @@ public:
 	~Game();
 	Game& operator=(const Game&) = delete;
 	void Go();
-private:
-	/// Super Special Function
-	void PushGameState();
 public:
 	void PushFrame();
 	///
 private:
 	/********************************/
 	/*  User Functions              */
+	/// Super Special Function
+	void PushGameState();
 	void PushUI();
+	void PushMap();
 
 	/********************************/
 public:
@@ -77,6 +77,7 @@ private:
 
 	GSData _BST; //Buffer GameState
 	UIData _BUI; //Buffer UI
+	Map	   _BMP;
 
 	StagePath _StgFlw;
 

@@ -24,6 +24,9 @@ Match::Match(MainWindow & wnd) : Stage(wnd)
 	// Initialise CollisionField
 	_State._CollisionField = new CollisionField();
 	//
+
+	// Initialise Map
+	_Map = DefaultMaps::DefaultMap;
 }
 
 
