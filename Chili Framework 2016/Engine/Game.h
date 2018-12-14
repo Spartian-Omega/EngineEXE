@@ -64,15 +64,13 @@ private:
 
 	/********************************/
 public:
-	bool DRAW;
-	bool WAIT1;
-	bool WAIT2;
-	bool HOLD;
+	bool DRAW;		// While true the game will be drawn by the Graphics thread.
+	bool HOLD;		// While true the game can not be drawn by the Graphics thread.
+	bool gLatch;	// Graphics Drawing Latch , prevents a buffer write while the graphics thread is processing.
+	bool bLatch;	// Push to Buffer Latch , allows a buffer write after the main thread makes a failed attempt to write. Also acts as a secondary HOLD.
 private:
 	MainWindow& wnd;
 	Graphics gfx;
-
-
 
 	double _cycleInterval;
 	std::wstring _debug_wstream;

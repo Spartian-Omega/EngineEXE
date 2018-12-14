@@ -31,21 +31,18 @@
     <Filter Include="Header Files\Stages">
       <UniqueIdentifier>{32ab0fee-1bf0-43aa-a906-1554e87c375b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\MapData">
+      <UniqueIdentifier>{1134d0fb-bc8a-4544-b72c-17d88a4f9354}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Pawn">
+      <UniqueIdentifier>{38990a42-a108-4170-ba25-b7a286489271}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HitBox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Pawn.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="_2D_Vector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionField.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameState.h">
@@ -114,11 +111,20 @@
     <ClInclude Include="Match.h">
       <Filter>Header Files\Stages</Filter>
     </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="UserInterface.h">
       <Filter>Header Files\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files\MapData</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionField.h">
+      <Filter>Header Files\MapData</Filter>
+    </ClInclude>
+    <ClInclude Include="Pawn.h">
+      <Filter>Header Files\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="HitBox.h">
+      <Filter>Header Files\Pawn</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

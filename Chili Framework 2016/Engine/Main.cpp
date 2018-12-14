@@ -50,7 +50,7 @@ DWORD WINAPI GRAPHICSTHREAD(__in LPVOID lpParameter)
 	while (pGraphicsThreadData->GameAddress->DRAW){
 		double _frameInterval = 0;
 		auto start = std::chrono::system_clock::now();
-		if (pGraphicsThreadData->GameAddress->HOLD || pGraphicsThreadData->GameAddress->WAIT2) {
+		if (pGraphicsThreadData->GameAddress->HOLD || pGraphicsThreadData->GameAddress->bLatch) {
 		}
 		else {
 			pGraphicsThreadData->GameAddress->PushFrame();

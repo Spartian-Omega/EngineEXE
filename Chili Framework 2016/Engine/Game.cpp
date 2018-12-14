@@ -33,8 +33,8 @@ Game::Game(MainWindow& wnd)
 {
 
 	_cycleInterval = 0;
-	WAIT1 = false;
-	WAIT2 = false;
+	gLatch = false;
+	bLatch = false;
 
 	_StgFlw.CStge = new Menu(wnd);
 	_StgFlw.NStge = new Match(wnd);
@@ -45,7 +45,7 @@ Game::Game(MainWindow& wnd)
 Game::~Game()
 {
 	DRAW = false;
-	while(WAIT1){}
+	while(gLatch){}
 }
 
 void Game::Go()
@@ -63,13 +63,13 @@ void Game::Go()
 
 	/// Push Game State to Buffer
 	HOLD = true;
-	if (!WAIT1 && WAIT2) {
+	if (!gLatch && bLatch) {
 		PushGameState();
 		PushUI();
-		WAIT2 = false;
+		bLatch = false;
 	}
 	else {
-		WAIT2 = true;
+		bLatch = true;
 	}
 	HOLD = false;
 		///
@@ -77,7 +77,7 @@ void Game::Go()
 	auto end = std::chrono::system_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end - start;
 
-	_cycleInterval = elapsed_seconds.count();
+	//_cycleInterval = elapsed_seconds.count();
 	//_debug_wstream = std::to_wstring(_cycleInterval);
 	//_debug_wstream = L"Cycle Interval = " + _debug_wstream + L"\n";
 	//OutputDebugString(_debug_wstream.c_str());
@@ -100,7 +100,7 @@ void Game::PushGameState()
 
 void Game::PushFrame()
 {
-	WAIT1 = true;
+	gLatch = true;
 	gfx.BeginFrame();
 ////	_GameState.DrawCollisionField()->DrawField(wnd , gfx);
 	for (int i = 0; i < GameState::GMESZE; i++) {
@@ -124,6 +124,6 @@ void Game::PushFrame()
 	gfx.EndFrame();
 	_BUI.Clear();
 	_BST.Clear();
-	WAIT1 = false;
+	gLatch = false;
 }
 
