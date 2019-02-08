@@ -9,7 +9,7 @@
 class Controller
 {
 public:
-	Controller(class Pawn * pawn);
+	Controller(class PDynamic * pawn);
 	~Controller();
 
 	virtual void ControllerGo(double dt);
@@ -17,7 +17,7 @@ public:
 	virtual Pawn * GetTarget();
 
 protected:
-	Pawn * myPawn;
+	PDynamic * myPawn;
 
 	std::wstring _debug_wstream;
 

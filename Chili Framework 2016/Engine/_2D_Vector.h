@@ -4,8 +4,8 @@
 
 struct _2D_Point
 {
-	double x;
-	double y;
+	double x = 0;
+	double y = 0;
 
 	_2D_Point() { ; }
 	_2D_Point(double x, double y) : x(x), y(y) { ; }

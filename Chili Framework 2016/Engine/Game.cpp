@@ -73,7 +73,7 @@ void Game::Go()
 		bLatch = true;
 	}
 	HOLD = false;
-		///
+	///
 
 	auto end = std::chrono::system_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end - start;
@@ -111,21 +111,22 @@ void Game::PushFrame()
 	gLatch = true;
 	gfx.BeginFrame();
 
-	//
+	// Draw Map
 	_BMP.Draw(gfx);
 	//
 
 
 ////	_GameState.DrawCollisionField()->DrawField(wnd , gfx);
+
+	// Draw Pawns
 	for (int i = 0; i < GameState::GMESZE; i++) {
 		if (_BST._pwnArry[i] != nullptr) {
 			_BST._pwnArry[i]->Draw(gfx);
 		}
 	}
+	//
 
-
-	//Draw UI
-
+	// Draw UI
 	for (int i = 0; i < UserInterface::WAMNT; i++) {
 		if (_BUI.DWidgets[i].IsVisible()) {
 			_BUI.DWidgets[i].Draw(gfx);
@@ -134,6 +135,7 @@ void Game::PushFrame()
 			_BUI.DButtons[i].Draw(gfx);
 		}
 	}
+	//
 
 	gfx.EndFrame();
 	_BUI.Clear();

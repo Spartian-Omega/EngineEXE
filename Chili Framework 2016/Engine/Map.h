@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+
+#include "_2D_Vector.h"
 #include "Colors.h"
 
 struct Terrain;
@@ -17,6 +19,7 @@ public:
 	~Map();
 	void Draw(Graphics & gfx);
 	void MakeTerrainBlock(const Terrain tb, const int & x, const int & y);
+
 protected:
 	Terrain * tData[60][80] = { nullptr };
 };
@@ -67,4 +70,6 @@ namespace DefaultMaps
 		return m;
 	}
 	static const Map DefaultMap = MakeDefaultMap();
+
+	const _2D_Point ORIGIN = _2D_Point(0, 0); // Origin is 2D point situated at ( 0 , 0 )
 }

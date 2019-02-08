@@ -1,10 +1,10 @@
 #include "ANPCController.h"
-#include "Pawn.h"
+#include "PDynamic.h"
 #include <cmath>
 
 
 
-ANPCController::ANPCController(Pawn * pawn) : Controller(pawn) , _cTimer(0)
+ANPCController::ANPCController(PDynamic * pawn) : Controller(pawn) , _cTimer(0)
 {
 	myPawn->SetColour(Color(0,0,0));
 }

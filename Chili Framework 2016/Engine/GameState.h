@@ -18,7 +18,7 @@ public:
 	~GameState();
 
 
-	static int const GMESZE = 100; // Amount of Pawns in the Game
+	static int const GMESZE = 50; // Amount of Pawns in the Game
 
 	Pawn * _pwnArry[GMESZE] = { nullptr };
 	Controller * _CtrlArry[GMESZE] = { nullptr };

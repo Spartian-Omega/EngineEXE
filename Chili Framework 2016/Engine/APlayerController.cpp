@@ -1,8 +1,8 @@
 #include "APlayerController.h"
-#include "Pawn.h"
+#include "PDynamic.h"
 
 
-APlayerController::APlayerController(Pawn * pawn, class MainWindow & wnd) : Controller(pawn) , wnd(wnd)
+APlayerController::APlayerController(PDynamic * pawn, class MainWindow & wnd) : Controller(pawn) , wnd(wnd)
 {
 	myPawn->SetColour(Color(255, 255, 255));
 }

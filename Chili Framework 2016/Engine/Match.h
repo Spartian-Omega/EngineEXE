@@ -16,7 +16,7 @@ public:
 private:
 
 
-	Pawn * _Player;
+	PDynamic * _Player;
 	APlayerController * _PlayerController;
 
 };

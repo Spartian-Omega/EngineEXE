@@ -4,7 +4,7 @@ class ANPCController :
 	public Controller
 {
 public:
-	ANPCController(class Pawn * pawn);
+	ANPCController(class PDynamic * pawn);
 	~ANPCController();
 
 	void ControllerGo(double dt);

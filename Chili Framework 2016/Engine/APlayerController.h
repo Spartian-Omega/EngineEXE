@@ -4,7 +4,7 @@ class APlayerController :
 	public Controller
 {
 public:
-	APlayerController(class Pawn * pawn, class MainWindow & wnd);
+	APlayerController(class PDynamic * pawn, class MainWindow & wnd);
 	~APlayerController();
 
 	void ControllerGo(double dt);

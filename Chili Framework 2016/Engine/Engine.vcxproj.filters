@@ -126,6 +126,18 @@
     <ClInclude Include="HitBox.h">
       <Filter>Header Files\Pawn</Filter>
     </ClInclude>
+    <ClInclude Include="PDynamic.h">
+      <Filter>Header Files\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="PCharacter.h">
+      <Filter>Header Files\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="PDefaultCharacter.h">
+      <Filter>Header Files\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="PStatic.h">
+      <Filter>Header Files\Pawn</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
@@ -204,6 +216,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UserInterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PDynamic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PStatic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PCharacter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PDefaultCharacter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

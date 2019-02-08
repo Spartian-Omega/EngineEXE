@@ -75,9 +75,9 @@ private:
 	double _cycleInterval;
 	std::wstring _debug_wstream;
 
-	GSData _BST; //Buffer GameState
-	UIData _BUI; //Buffer UI
-	Map	   _BMP;
+	GSData _BST; // Buffer GameState
+	UIData _BUI; // Buffer UI
+	Map	   _BMP; // Buffer Map
 
 	StagePath _StgFlw;
 

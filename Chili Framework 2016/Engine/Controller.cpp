@@ -1,10 +1,10 @@
 #include "Controller.h"
-#include "Pawn.h"
+#include "PDynamic.h"
 #include "MainWindow.h"
 
 
 
-Controller::Controller(Pawn * pawn)
+Controller::Controller(PDynamic * pawn)
 {
 	myPawn = pawn;
 }
