@@ -11,7 +11,7 @@ Map::~Map()
 {
 }
 
-void Map::Draw(Graphics & gfx)
+void Map::Draw(Graphics & gfx, _2D_Point campos)
 {
 	if (tData[0][0] == nullptr) {}
 	else {
@@ -19,10 +19,24 @@ void Map::Draw(Graphics & gfx)
 		{
 			for (int k = 0; k < 80; k++)
 			{
+				bool inScreenBounds = true;
+				_2D_Point posNorm;
 				int xPos = 0, yPos = 0;
-				xPos = 5 + k * Terrain::SIZE;
-				yPos = 595 - i * Terrain::SIZE;
-				gfx.DrawRectangle( xPos, yPos, Terrain::SIZE, Terrain::SIZE, tData[i][k]->colour);
+				xPos = k * Terrain::SIZE;
+				yPos = i * Terrain::SIZE;
+				if ((xPos - campos.x) < 400 - (Terrain::SIZE / 2) && (xPos - campos.x) > -400 + (Terrain::SIZE / 2)) {
+					posNorm.x = (xPos - campos.x) + 400;
+				}
+				else { inScreenBounds = false; }
+
+				if ((yPos - campos.y) < 300 - (Terrain::SIZE / 2) && (yPos - campos.y) > -300 + (Terrain::SIZE / 2)) {
+					posNorm.y = (yPos - campos.y) + 300;
+				}
+				else { inScreenBounds = false; }
+
+				if (inScreenBounds) {
+				gfx.DrawRectangle(posNorm.x, posNorm.y, Terrain::SIZE, Terrain::SIZE, tData[i][k]->colour);
+				}
 			}
 		}
 	}

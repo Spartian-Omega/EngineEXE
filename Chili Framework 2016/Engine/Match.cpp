@@ -38,7 +38,7 @@ void Match::StageGo(double dt)
 {
 
 	/// Test Spawner
-/*
+///*
 if (_PlayerController->ControlIsPressed()) {
 
 	for (int i = 1; i <= _State.GMESZE; i++) {
@@ -52,7 +52,7 @@ if (_PlayerController->ControlIsPressed()) {
 	}
 }
 ///
-*/
+//*/
 	
 	for (int i = 0; i < _State.GMESZE; i++) {
 		if (_State._pwnArry[i] != nullptr) {

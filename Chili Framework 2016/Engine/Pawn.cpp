@@ -14,9 +14,21 @@ Pawn::~Pawn()
 
 }
 
-void Pawn::Draw(Graphics & gfx)
+const void Pawn::Draw(Graphics & gfx, _2D_Point & campos)
 {
-	_shape->Draw(gfx, _centre);
+	bool inScreenBounds = true;
+	_2D_Point posNorm;
+	if ((_centre.x - campos.x) < 400 - 50 && (_centre.x - campos.x) > -400 + 50) {
+		posNorm.x = _centre.x - campos.x + 400;
+	}
+	else { inScreenBounds = false; }
+	if ((_centre.y - campos.y) < 300 - 50 && (_centre.y - campos.y) > -300 + 50) {
+		posNorm.y = _centre.y - campos.y + 300;
+	}
+	else { inScreenBounds = false; }
+	if (inScreenBounds) {
+		_shape->Draw(gfx, posNorm);
+	}
 }
 
 void Pawn::UpdatePawn()

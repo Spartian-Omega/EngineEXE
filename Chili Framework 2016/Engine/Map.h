@@ -17,7 +17,7 @@ public:
 		for (int i = 0; i < 60; i++) {	for (int k = 0; k < 80; k++){ tData[i][k] = m.tData[i][k]; }}
 	}
 	~Map();
-	void Draw(Graphics & gfx);
+	void Draw(Graphics & gfx, _2D_Point campos);
 	void MakeTerrainBlock(const Terrain tb, const int & x, const int & y);
 
 protected:

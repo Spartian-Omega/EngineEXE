@@ -111,8 +111,15 @@ void Game::PushFrame()
 	gLatch = true;
 	gfx.BeginFrame();
 
+	// Get Camera Position
+	_2D_Point camPos;
+	if (_BST._pwnArry[0] != nullptr) {
+		camPos = _BST._pwnArry[0]->QueryPosition();
+	}
+	//
+
 	// Draw Map
-	_BMP.Draw(gfx);
+	_BMP.Draw(gfx, camPos);
 	//
 
 
@@ -121,7 +128,7 @@ void Game::PushFrame()
 	// Draw Pawns
 	for (int i = 0; i < GameState::GMESZE; i++) {
 		if (_BST._pwnArry[i] != nullptr) {
-			_BST._pwnArry[i]->Draw(gfx);
+			_BST._pwnArry[i]->Draw(gfx, camPos);
 		}
 	}
 	//

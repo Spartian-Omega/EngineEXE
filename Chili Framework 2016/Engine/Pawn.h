@@ -16,11 +16,12 @@ public:
 	Pawn(_2D_Point p, Shape * s);
 	~Pawn();
 
-	void Draw(Graphics & gfx);
-	int QuerySizeH() { return _shape->QueryHeight(); }
-	int QuerySizeW() { return _shape->QueryWidth(); }
-	_2D_Point QueryPosition() { return _centre; }
-	Color QueryColour() { return _shape->GetColour(); }
+	const void Draw(Graphics & gfx, _2D_Point & campos);
+
+	const int QuerySizeH() { return _shape->QueryHeight(); }
+	const int QuerySizeW() { return _shape->QueryWidth(); }
+	const _2D_Point QueryPosition() { return _centre; }
+	const Color QueryColour() { return _shape->GetColour(); }
 	
 
 	virtual void UpdatePawn();
