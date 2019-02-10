@@ -147,6 +147,7 @@ void Game::PushFrame()
 	gfx.EndFrame();
 	_BUI.Clear();
 	_BST.Clear();
+	_BMP.Clear();
 	gLatch = false;
 }
 

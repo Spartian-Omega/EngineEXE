@@ -24,7 +24,7 @@ Match::Match(MainWindow & wnd) : Stage(wnd)
 	
 
 	// Initialise CollisionField
-	_State._CollisionField = new CollisionField();
+	_State._CollisionField = new CollisionField(_Map.QueryWidth() , _Map.QueryHeight());
 	//
 
 }

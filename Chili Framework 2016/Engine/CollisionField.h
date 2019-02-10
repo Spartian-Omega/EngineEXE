@@ -8,7 +8,7 @@
 class CollisionField
 {
 public:
-	CollisionField();
+	CollisionField(const int & w, const int & h);
 	~CollisionField();
 
 	void UpdateCollisionField(class Pawn * pawn);
@@ -18,7 +18,9 @@ public:
 
 
 private:
-	Pawn * _CllArry[600][800] = { nullptr };
-	Pawn * _oldArray[600][800] = { nullptr };
+	int const WIDTH;
+	int const HEIGHT;
+	Pawn *** _CllArry;
+	Pawn *** _oldArray;
 };
 

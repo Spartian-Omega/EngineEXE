@@ -34,6 +34,8 @@ void PDefaultCharacter::UpdatePawn()
 	else if (_dy < 0) {
 		_centre.y += _dy;
 	}
+	/// Redo the following for clamping to the map boundaries and colliding with terrain.
+
 	_2D_Point point = _hbox.ClampToMoveableArea(_centre, QuerySizeW(), QuerySizeH());
 	if ((_centre.x) != point.x || (_centre.y != point.y)) {
 		_centre.x = point.x;
@@ -41,6 +43,8 @@ void PDefaultCharacter::UpdatePawn()
 		_dx = 0; _dtx = 0;
 		_dy = 0; _dty = 0;
 	}
+
+	///
 	_path.p2.x = _centre.x;
 	_path.p2.y = _centre.y;
 }
