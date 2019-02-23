@@ -13,20 +13,14 @@
 Match::Match(MainWindow & wnd) : Stage(wnd)
 {
 	// Initialise Map
-	_Map = DefaultMaps::DefaultMap;
+	InitialiseMap();
 
 	// Initialise Player
-	_Player = new PDefaultCharacter(DefaultMaps::ORIGIN);
-	_PlayerController = new APlayerController(_Player, wnd);
-	_Player->AssignController(_PlayerController);
-	_State._pwnArry[0] = _Player;
-	_State._CtrlArry[0] = _PlayerController;
-	
+	InitialisePlayers();
 
 	// Initialise CollisionField
-	_State._CollisionField = new CollisionField(_Map.QueryWidth() , _Map.QueryHeight());
-	//
-
+	InitialiseCollisionField();
+	
 }
 
 
@@ -34,24 +28,48 @@ Match::~Match()
 {
 }
 
+void Match::InitialiseMap()
+{
+	_Map = DefaultMaps::DefaultMap;
+}
+
+void Match::InitialisePlayers()
+{
+	_2D_Point locSpawn(DefaultMaps::ORIGIN.x + 50 , DefaultMaps::ORIGIN.y + 50);
+	_Player = new PDefaultCharacter(locSpawn);
+	_PlayerController = new APlayerController(_Player, _UI.QueryMainWindow());
+	_Player->AssignController(_PlayerController);
+	_State._pwnArry[0] = _Player;
+	_State._CtrlArry[0] = _PlayerController;
+}
+
+void Match::InitialiseCollisionField()
+{
+	_State._CollisionField = new CollisionField(_Map.QueryWidth(), _Map.QueryHeight());
+	_State._CollisionField->UpdateWTerrain(_Map.QueryTerrain());
+}
+
 void Match::StageGo(double dt)
 {
 
-	/// Test Spawner
+/// Test Spawner
 ///*
-if (_PlayerController->ControlIsPressed()) {
-
-	for (int i = 1; i <= _State.GMESZE; i++) {
-		if (_State._pwnArry[i] == nullptr) {
-			_State._pwnArry[i] = new PDefaultCharacter(_2D_Point(rand() % (int(DefaultMaps::ORIGIN.x) + 100), rand() % (int(DefaultMaps::ORIGIN.y) + 100)));
-			PCharacter * pd = static_cast<PCharacter*>(_State._pwnArry[i]);
-			_State._CtrlArry[i] = new ANPCController(pd);
-			pd->AssignController(_State._CtrlArry[i]);
-			_State._CtrlArry[i]->SetTarget(_Player);
-		}
-	}
-}
+//if (_PlayerController->ControlIsPressed()) {
+//
+//	for (int i = 1; i <= _State.GMESZE; i++) {
+//		if (_State._pwnArry[i] == nullptr) {
+//			_State._pwnArry[i] = new PDefaultCharacter(_2D_Point(rand() % (int(DefaultMaps::ORIGIN.x) + _Map.QueryWidth()), rand() % (int(DefaultMaps::ORIGIN.y) + _Map.QueryHeight())));
+//			PCharacter * pd = static_cast<PCharacter*>(_State._pwnArry[i]);
+//			_State._CtrlArry[i] = new ANPCController(pd);
+//			pd->AssignController(_State._CtrlArry[i]);
+//			_State._CtrlArry[i]->SetTarget(_Player);
+//		}
+//	}
+//}
 ///
+
+
+
 //*/
 	
 	for (int i = 0; i < _State.GMESZE; i++) {
@@ -66,11 +84,9 @@ if (_PlayerController->ControlIsPressed()) {
 		if (_State._CtrlArry[i] != nullptr) {
 			_State._CtrlArry[i]->ControllerGo(dt);
 		}
-		/// Move below To drawing thread
 		if (_State._pwnArry[i] != nullptr) {
-			_State._CollisionField->UpdateCollisionField(_State._pwnArry[i]);
+			_State._CollisionField->UpdateWPawn(_State._pwnArry[i]);
 		}
-		///
 	}
 
 

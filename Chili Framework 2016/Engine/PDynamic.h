@@ -18,7 +18,7 @@ public:
 	virtual	void MoveHorizontal(int direction, double dt);
 	virtual	void MoveVertical(int direction, double dt);
 
-	virtual void collisionDetected(class Pawn * collidingPawn);
+	virtual void CollisionDetected(class Pawn * collidingPawn);
 	
 
 public:
@@ -27,6 +27,11 @@ public:
 	//
 
 protected:
+
+	bool _boundaryTop = true;
+	bool _boundaryBottom = true;
+	bool _boundaryLeft = true;
+	bool _boundaryRight = true;
 
 	Controller * MyController;
 

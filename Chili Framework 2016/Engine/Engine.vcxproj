@@ -164,7 +164,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Graphics.h" />
-    <ClInclude Include="HitBox.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="PCharacter.h" />
     <ClInclude Include="PDefaultCharacter.h" />
@@ -196,7 +196,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Graphics.cpp" />
-    <ClCompile Include="HitBox.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="PCharacter.cpp" />
     <ClCompile Include="PDefaultCharacter.cpp" />

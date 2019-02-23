@@ -22,24 +22,16 @@
 
 #include <string>
 #include <sstream>
+
+// Chilli includes
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
-#include "Controller.h"
 
+// Custom includes
 #include "GameState.h"
-
 #include "UserInterface.h"
-
 #include "Stage.h"
-#include "Menu.h"
-#include "Match.h"
-
-#include "APlayerController.h"
-#include "ANPCController.h"
-#include "Pawn.h"
-#include "_2D_Vector.h"
-#include "CollisionField.h"
 
 
 

@@ -27,6 +27,6 @@ void PCharacter::MoveVertical(int direction, double dt)
 {
 }
 
-void PCharacter::collisionDetected(Pawn * collidingPawn)
+void PCharacter::CollisionDetected(Pawn * collidingPawn)
 {
 }

@@ -12,7 +12,7 @@ public:
 	UserInterface(MainWindow & wnd);
 	~UserInterface();
 
-
+	MainWindow & QueryMainWindow() const;
 
 	void UIGo();
 

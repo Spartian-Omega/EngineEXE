@@ -36,7 +36,7 @@ void PDynamic::MoveVertical(int direction, double dt)
 
 }
 
-void PDynamic::collisionDetected(Pawn * collidingPawn)
+void PDynamic::CollisionDetected(Pawn * collidingPawn)
 {
 
 }

@@ -13,7 +13,9 @@ public:
 	void MoveVertical(int direction, double dt);
 
 
-	void collisionDetected(class Pawn * collidingPawn);
+	void CollisionDetected(class Pawn * collidingPawn);
+	void TouchingSurface(class Terrain * terra, const bool floor);
+	void TouchingMapBoundary(bool a, bool b, bool c);
 
 protected:
 

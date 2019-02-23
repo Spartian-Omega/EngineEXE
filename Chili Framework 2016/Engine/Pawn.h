@@ -2,9 +2,12 @@
 #include <string>
 #include <sstream>
 
-#include "HitBox.h"
+#include "Map.h"
+
+#include "Collision.h"
 #include "_2D_Vector.h"
 #include "Shape.h"
+
 
 
 
@@ -25,8 +28,9 @@ public:
 	
 
 	virtual void UpdatePawn();
-	virtual void collisionDetected(class Pawn * collidingPawn);
-	
+	virtual void CollisionDetected(class Pawn * collidingPawn);
+	virtual void TouchingSurface(class Terrain * terra, const bool floor);
+	virtual void TouchingMapBoundary(bool a, bool b, bool c);
 
 
 		
@@ -39,6 +43,6 @@ protected:
 	//Physical Properties
 	_2D_Point _centre;
 	Shape * _shape;
-	HitBox _hbox;
+	Collision _collision;
 };
 

@@ -123,9 +123,6 @@
     <ClInclude Include="Pawn.h">
       <Filter>Header Files\Pawn</Filter>
     </ClInclude>
-    <ClInclude Include="HitBox.h">
-      <Filter>Header Files\Pawn</Filter>
-    </ClInclude>
     <ClInclude Include="PDynamic.h">
       <Filter>Header Files\Pawn</Filter>
     </ClInclude>
@@ -136,6 +133,9 @@
       <Filter>Header Files\Pawn</Filter>
     </ClInclude>
     <ClInclude Include="PStatic.h">
+      <Filter>Header Files\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
       <Filter>Header Files\Pawn</Filter>
     </ClInclude>
   </ItemGroup>
@@ -159,9 +159,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Mouse.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HitBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Pawn.cpp">
@@ -228,6 +225,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PDefaultCharacter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

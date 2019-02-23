@@ -19,6 +19,10 @@ struct Terrain
 
 	Terrain(const std::wstring & t, const Color & c, const int & h) : type(t), colour(c), health(h) {}
 	Terrain(const Terrain & terra) : type(terra.type), colour(terra.colour), health(terra.health) {}
+
+	bool operator==(const Terrain & rhs) {
+		return this->type == rhs.type;
+	}
 };
 
 // Defined Terrain Types
@@ -55,6 +59,7 @@ public:
 
 	int QueryWidth() const { return WIDTH; }
 	int QueryHeight() const { return HEIGHT; }
+	Terrain *** QueryTerrain() const { return tData; }
 
 	void Draw(Graphics & gfx, _2D_Point campos);
 	void MakeTerrainBlock(const Terrain & tb, const int & x, const int & y);

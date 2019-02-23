@@ -11,6 +11,11 @@ public:
 	Match(MainWindow & wnd);
 	~Match();
 
+	void InitialiseMap();
+	void InitialisePlayers();
+	void InitialiseCollisionField();
+
+
 	void StageGo(double dt);
 
 private:

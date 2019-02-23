@@ -2,12 +2,12 @@
 
 #include "_2D_Vector.h"
 
-class HitBox
+class Collision
 {
 public:
-	HitBox();
-	~HitBox();
+	Collision();
+	~Collision();
 
 	_2D_Point ClampToMoveableArea(_2D_Point c, int w, int h);
-};
 
+};

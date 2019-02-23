@@ -36,7 +36,15 @@ void Pawn::UpdatePawn()
 
 }
 
-void Pawn::collisionDetected(Pawn * collidingPawn)
+void Pawn::CollisionDetected(Pawn * collidingPawn)
 {
 
+}
+
+void Pawn::TouchingSurface(Terrain * terra, const bool floor)
+{
+}
+
+void Pawn::TouchingMapBoundary(bool a, bool b, bool c)
+{
 }

@@ -18,6 +18,11 @@ UserInterface::~UserInterface()
 {
 }
 
+MainWindow & UserInterface::QueryMainWindow() const
+{
+	return wnd;
+}
+
 
 
 void UserInterface::UIGo()

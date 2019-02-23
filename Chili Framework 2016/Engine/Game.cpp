@@ -19,11 +19,23 @@
  *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
  ******************************************************************************************/
 
-#include <chrono>
-#include "MainWindow.h"
 #include "Game.h"
+#include <chrono>
+
+// Chilli Includes
+#include "MainWindow.h"
+
+// Custom Includes
 #include "Widget.h"
 #include "Button.h"
+#include "Controller.h"
+#include "APlayerController.h"
+#include "ANPCController.h"
+#include "Pawn.h"
+#include "_2D_Vector.h"
+#include "Menu.h"
+#include "Match.h"
+#include "CollisionField.h"
 
 
 Game::Game(MainWindow& wnd)
@@ -50,9 +62,10 @@ Game::~Game()
 
 void Game::Go()
 {
-	//
+	// ...
 	auto start = std::chrono::system_clock::now();
 
+	// Stage Swapping
 	if (_StgFlw.CStge->NextLevel()) {
 		_StgFlw.PStge = _StgFlw.CStge;
 		_StgFlw.CStge = _StgFlw.NStge;
@@ -60,6 +73,8 @@ void Game::Go()
 	else {
 		_StgFlw.CStge->StageGo(_cycleInterval);
 	}
+	//
+
 
 	/// Push Game State to Buffer
 	HOLD = true;
@@ -75,16 +90,14 @@ void Game::Go()
 	HOLD = false;
 	///
 
+	// Game.Go() cycle time calculation and debug output.
 	auto end = std::chrono::system_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end - start;
-
 	_cycleInterval = elapsed_seconds.count();
-
-
 	_debug_wstream = std::to_wstring(_cycleInterval);
 	_debug_wstream = L"Cycle Interval = " + _debug_wstream + L"\n";
 	OutputDebugString(_debug_wstream.c_str());
-	
+	// ...
 }
 
 void Game::PushUI()
@@ -103,7 +116,9 @@ void Game::PushGameState()
 
 void Game::PushMap()
 {
+	//
 	_BMP = _StgFlw.CStge->GetMap();
+	//
 }
 
 void Game::PushFrame()
@@ -145,9 +160,11 @@ void Game::PushFrame()
 	//
 
 	gfx.EndFrame();
+	// Clear Buffer Memory
 	_BUI.Clear();
 	_BST.Clear();
 	_BMP.Clear();
+	//
 	gLatch = false;
 }
 

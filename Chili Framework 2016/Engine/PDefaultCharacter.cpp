@@ -1,5 +1,6 @@
 #include "PDefaultCharacter.h"
 #include "Square.h"
+#include "Map.h"
 
 /// Static Variable Declarations
 const int	PDefaultCharacter::_maxspeed = 500;
@@ -34,17 +35,7 @@ void PDefaultCharacter::UpdatePawn()
 	else if (_dy < 0) {
 		_centre.y += _dy;
 	}
-	/// Redo the following for clamping to the map boundaries and colliding with terrain.
 
-	_2D_Point point = _hbox.ClampToMoveableArea(_centre, QuerySizeW(), QuerySizeH());
-	if ((_centre.x) != point.x || (_centre.y != point.y)) {
-		_centre.x = point.x;
-		_centre.y = point.y;
-		_dx = 0; _dtx = 0;
-		_dy = 0; _dty = 0;
-	}
-
-	///
 	_path.p2.x = _centre.x;
 	_path.p2.y = _centre.y;
 }
@@ -129,14 +120,77 @@ void PDefaultCharacter::MoveVertical(int direction, double dt)
 	else if (_dty < 0) {
 		_dy = -_maxspeed * (_dty / (_dty - _a1)) * (dt);
 	}
+
+	if (_OnCeil && _dy < 0) {
+		_dy = 0;
+	}
+	if (_OnSurface && _dy > 0) {
+		_dy = 0;
+	}
 }
 
-void PDefaultCharacter::collisionDetected(Pawn * collidingPawn)
+void PDefaultCharacter::CollisionDetected(Pawn * collidingPawn)
 {
 	//OutputDebugString(L"Hit! \n");
 	if (MyController->GetTarget() == collidingPawn)
 	{
 		//	OutputDebugString(L"Hit Target! \n"); // This will cause a stutter with large amounts of pawns.
 		_destroy = true;
+	}
+}
+
+void PDefaultCharacter::TouchingSurface(Terrain * terra, const bool floor)
+{
+	if (terra == nullptr && !floor)
+	{
+		_OnSurface = false;
+	}
+	else if (terra == nullptr && floor)
+	{
+		_OnCeil = false;
+	}
+	else{
+		if (*terra == TerraTypes::Grass && !floor) {
+			_dy = 0;
+			_dty = 0;
+			_OnSurface = true;
+		}
+		else if (*terra == TerraTypes::Grass && floor) {
+			_dy = 0;
+			_dty = 0;
+			_OnCeil = true;
+		}
+	}
+}
+
+void PDefaultCharacter::TouchingMapBoundary(bool a, bool b, bool c)
+{
+	if (c) {
+		if (a && !b) { // top
+			_boundaryTop = true;
+		}
+		else if (a && b) { // bottom
+			_boundaryBottom = true;
+		}
+		else if (!a && b) { // left
+			_boundaryLeft = true;
+		}
+		else if (!a && !b) { // right
+			_boundaryRight = true;
+		}
+	}
+	else {
+		if (a && !b) { // top
+			_boundaryTop = false;
+		}
+		else if (a && b) { // bottom
+			_boundaryBottom = false;
+		}
+		else if (!a && b) { // left
+			_boundaryLeft = false;
+		}
+		else if (!a && !b) { // right
+			_boundaryRight = false;
+		}
 	}
 }

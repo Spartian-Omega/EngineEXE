@@ -1,20 +1,20 @@
-#include "HitBox.h"
+#include "Collision.h"
 
 
 
-HitBox::HitBox()
+Collision::Collision()
 {
 
 }
 
 
-HitBox::~HitBox()
+Collision::~Collision()
 {
 
 }
 
 
-_2D_Point HitBox::ClampToMoveableArea(_2D_Point c, int w, int h)
+_2D_Point Collision::ClampToMoveableArea(_2D_Point c, int w, int h)
 {
 	double x = c.x , y = c.y;
 	_2D_Point point;
