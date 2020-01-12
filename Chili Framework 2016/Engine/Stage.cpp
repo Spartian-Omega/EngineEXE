@@ -18,3 +18,4 @@ void Stage::StageGo(double dt)
 void Stage::UpdateUI(double dt)
 {
 }
+ 

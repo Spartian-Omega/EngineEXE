@@ -2,9 +2,12 @@
 #include <string>
 #include <sstream>
 
-#include "HitBox.h"
+#include "Map.h"
+
+#include "Collision.h"
 #include "_2D_Vector.h"
 #include "Shape.h"
+
 
 
 
@@ -16,16 +19,18 @@ public:
 	Pawn(_2D_Point p, Shape * s);
 	~Pawn();
 
-	void Draw(Graphics & gfx);
-	int QuerySizeH() { return _shape->QueryHeight(); }
-	int QuerySizeW() { return _shape->QueryWidth(); }
-	_2D_Point QueryPosition() { return _centre; }
-	Color QueryColour() { return _shape->GetColour(); }
+	const void Draw(Graphics & gfx, _2D_Point & campos);
+
+	const int QuerySizeH() { return _shape->QueryHeight(); }
+	const int QuerySizeW() { return _shape->QueryWidth(); }
+	const _2D_Point QueryPosition() { return _centre; }
+	const Color QueryColour() { return _shape->GetColour(); }
 	
 
 	virtual void UpdatePawn();
-	virtual void collisionDetected(class Pawn * collidingPawn);
-	
+	virtual void CollisionDetected(class Pawn * collidingPawn);
+	virtual void TouchingSurface(class Terrain * terra, const bool floor);
+	virtual void TouchingMapBoundary(bool a, bool b, bool c);
 
 
 		
@@ -38,6 +43,6 @@ protected:
 	//Physical Properties
 	_2D_Point _centre;
 	Shape * _shape;
-	HitBox _hbox;
+	Collision _collision;
 };
 

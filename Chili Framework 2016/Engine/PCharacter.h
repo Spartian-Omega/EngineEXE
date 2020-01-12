@@ -13,10 +13,11 @@ public:
 	void MoveVertical(int direction, double dt);
 
 
-	void collisionDetected(class Pawn * collidingPawn);
+	void CollisionDetected(class Pawn * collidingPawn);
 
 
 protected:
-
+	bool _OnSurface = true;
+	bool _OnCeil = true;
 };
 

@@ -1,24 +1,25 @@
 #pragma once
 #include "Pawn.h"
-#include "Graphics.h"
-#include "MainWindow.h"
-
-
+#include "Map.h"
 
 class CollisionField
 {
 public:
-	CollisionField();
+	CollisionField(const int & w, const int & h);
 	~CollisionField();
 
-	void UpdateCollisionField(class Pawn * pawn);
-	void EmptyCollisionField();
+	void UpdateWTerrain(Terrain *** tdata);
+	void UpdateWPawn(Pawn * pawn);
 
+	void EmptyCollisionField();
 	void DrawField(class MainWindow & wnd, class Graphics & gfx);
 
 
 private:
-	Pawn * _CllArry[600][800] = { nullptr };
-	Pawn * _oldArray[600][800] = { nullptr };
+	int const WIDTH;
+	int const HEIGHT;
+	Pawn *** _CllArry = nullptr;
+	Pawn *** _oldArray = nullptr;
+	Terrain *** tData = nullptr;
 };
 
