@@ -5,7 +5,7 @@
 #include <ppltasks.h>
 #include <synchapi.h>
 
-using namespace UWP_Project_DX12;
+using namespace Game;
 
 using namespace Concurrency;
 using namespace DirectX;

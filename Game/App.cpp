@@ -3,7 +3,7 @@
 
 #include <ppltasks.h>
 
-using namespace UWP_Project_DX12;
+using namespace Game;
 
 using namespace concurrency;
 using namespace Windows::ApplicationModel;
@@ -83,7 +83,7 @@ void App::Load(Platform::String^ entryPoint)
 {
 	if (m_main == nullptr)
 	{
-		m_main = std::unique_ptr<UWP_Project_DX12Main>(new UWP_Project_DX12Main());
+		m_main = std::unique_ptr<GameMain>(new GameMain());
 	}
 }
 

@@ -1,8 +1,8 @@
 #include "pch.h"
-#include "UWP_Project_DX12Main.h"
+#include "GameMain.h"
 #include "Common\DirectXHelper.h"
 
-using namespace UWP_Project_DX12;
+using namespace Game;
 using namespace Windows::Foundation;
 using namespace Windows::System::Threading;
 using namespace Concurrency;
@@ -10,7 +10,7 @@ using namespace Concurrency;
 // The DirectX 12 Application template is documented at https://go.microsoft.com/fwlink/?LinkID=613670&clcid=0x409
 
 // Loads and initializes application assets when the application is loaded.
-UWP_Project_DX12Main::UWP_Project_DX12Main()
+GameMain::GameMain()
 {
 	// TODO: Change the timer settings if you want something other than the default variable timestep mode.
 	// e.g. for 60 FPS fixed timestep update logic, call:
@@ -21,7 +21,7 @@ UWP_Project_DX12Main::UWP_Project_DX12Main()
 }
 
 // Creates and initializes the renderers.
-void UWP_Project_DX12Main::CreateRenderers(const std::shared_ptr<DX::DeviceResources>& deviceResources)
+void GameMain::CreateRenderers(const std::shared_ptr<DX::DeviceResources>& deviceResources)
 {
 	// TODO: Replace this with your app's content initialization.
 	m_sceneRenderer = std::unique_ptr<Sample3DSceneRenderer>(new Sample3DSceneRenderer(deviceResources));
@@ -30,7 +30,7 @@ void UWP_Project_DX12Main::CreateRenderers(const std::shared_ptr<DX::DeviceResou
 }
 
 // Updates the application state once per frame.
-void UWP_Project_DX12Main::Update()
+void GameMain::Update()
 {
 	// Update scene objects.
 	m_timer.Tick([&]()
@@ -42,7 +42,7 @@ void UWP_Project_DX12Main::Update()
 
 // Renders the current frame according to the current application state.
 // Returns true if the frame was rendered and is ready to be displayed.
-bool UWP_Project_DX12Main::Render()
+bool GameMain::Render()
 {
 	// Don't try to render anything before the first Update.
 	if (m_timer.GetFrameCount() == 0)
@@ -56,14 +56,14 @@ bool UWP_Project_DX12Main::Render()
 }
 
 // Updates application state when the window's size changes (e.g. device orientation change)
-void UWP_Project_DX12Main::OnWindowSizeChanged()
+void GameMain::OnWindowSizeChanged()
 {
 	// TODO: Replace this with the size-dependent initialization of your app's content.
 	m_sceneRenderer->CreateWindowSizeDependentResources();
 }
 
 // Notifies the app that it is being suspended.
-void UWP_Project_DX12Main::OnSuspending()
+void GameMain::OnSuspending()
 {
 	// TODO: Replace this with your app's suspending logic.
 
@@ -77,13 +77,13 @@ void UWP_Project_DX12Main::OnSuspending()
 }
 
 // Notifes the app that it is no longer suspended.
-void UWP_Project_DX12Main::OnResuming()
+void GameMain::OnResuming()
 {
 	// TODO: Replace this with your app's resuming logic.
 }
 
 // Notifies renderers that device resources need to be released.
-void UWP_Project_DX12Main::OnDeviceRemoved()
+void GameMain::OnDeviceRemoved()
 {
 	// TODO: Save any necessary application or renderer state and release the renderer
 	// and its resources which are no longer valid.

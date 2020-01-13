@@ -2,9 +2,9 @@
 
 #include "pch.h"
 #include "Common\DeviceResources.h"
-#include "UWP_Project_DX12Main.h"
+#include "GameMain.h"
 
-namespace UWP_Project_DX12
+namespace Game
 {
 	// Main entry point for our app. Connects the app with the Windows shell and handles application lifecycle events.
 	ref class App sealed : public Windows::ApplicationModel::Core::IFrameworkView
@@ -40,7 +40,7 @@ namespace UWP_Project_DX12
 		std::shared_ptr<DX::DeviceResources> GetDeviceResources();
 
 		std::shared_ptr<DX::DeviceResources> m_deviceResources;
-		std::unique_ptr<UWP_Project_DX12Main> m_main;
+		std::unique_ptr<GameMain> m_main;
 		bool m_windowClosed;
 		bool m_windowVisible;
 	};

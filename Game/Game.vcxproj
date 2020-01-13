@@ -35,9 +35,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{84080e89-de56-4875-b1c9-3037acfe1681}</ProjectGuid>
+    <ProjectGuid>{84acd119-b720-4d16-bddd-5fde31a07cd2}</ProjectGuid>
     <Keyword>DirectXApp</Keyword>
-    <RootNamespace>UWP_Project_DX12</RootNamespace>
+    <RootNamespace>Game</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
@@ -245,7 +245,7 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="Common\d3dx12.h" />
     <ClInclude Include="Common\DeviceResources.h" />
-    <ClInclude Include="UWP_Project_DX12Main.h" />
+    <ClInclude Include="GameMain.h" />
     <ClInclude Include="Common\DirectXHelper.h" />
     <ClInclude Include="Common\StepTimer.h" />
     <ClInclude Include="Content\Sample3DSceneRenderer.h" />
@@ -255,7 +255,7 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Common\DeviceResources.cpp" />
-    <ClCompile Include="UWP_Project_DX12Main.cpp" />
+    <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="Content\Sample3DSceneRenderer.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

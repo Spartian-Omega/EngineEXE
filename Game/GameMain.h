@@ -5,12 +5,12 @@
 #include "Content\Sample3DSceneRenderer.h"
 
 // Renders Direct3D content on the screen.
-namespace UWP_Project_DX12
+namespace Game
 {
-	class UWP_Project_DX12Main
+	class GameMain
 	{
 	public:
-		UWP_Project_DX12Main();
+		GameMain();
 		void CreateRenderers(const std::shared_ptr<DX::DeviceResources>& deviceResources);
 		void Update();
 		bool Render();
