@@ -1,18 +1,14 @@
 ﻿#pragma once
+#include <windows.h>
+#include <winrt/Windows.Foundation.h>
+#include <winrt/Windows.Foundation.Collections.h>
+#include <winrt/Windows.ApplicationModel.Core.h>
+#include <winrt/Windows.UI.Core.h>
+#include <winrt/Windows.UI.Composition.h>
+#include <winrt/Windows.UI.Input.h>
+#include <winrt/Windows.Graphics.Display.Core.h>
 
-#include <wrl.h>
-#include <wrl/client.h>
-#include <dxgi1_4.h>
-#include <d3d12.h>
-#include "Common\d3dx12.h"
-#include <pix.h>
-#include <DirectXColors.h>
-#include <DirectXMath.h>
-#include <memory>
-#include <vector>
-#include <agile.h>
-#include <concrt.h>
+//Win2D
 
-#if defined(_DEBUG)
-#include <dxgidebug.h>
-#endif
+//#include <winrt/Microsoft.Graphics.Canvas.h>
+//#include <winrt/Microsoft.Graphics.Canvas.UI.h>
