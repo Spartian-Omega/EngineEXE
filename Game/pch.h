@@ -20,8 +20,3 @@
 //#include <winrt/Windows.Graphics.Display.Core.h>
 
 #include "DeviceLostHelper.h"
-
-// Currently referencing this v
-// https://docs.microsoft.com/en-us/windows/uwp/composition/composition-native-interop
-// Specifically this v
-// https://docs.microsoft.com/en-us/windows/uwp/composition/composition-native-interop#cwinrt-usage-example

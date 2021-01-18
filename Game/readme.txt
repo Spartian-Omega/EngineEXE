@@ -1,31 +1,15 @@
-========================================================================
-    C++/WinRT Game Project Overview
-========================================================================
+Author: James
 
-This project demonstrates how to create a Universal Windows App (UWP) 
-application without the XAML framework, using the C++/WinRT SDK platform
-projection headers for the Windows.ApplicationModel.Core namespace.
+TBD if required.
 
-========================================================================
-Learn more about C++/WinRT here:
-http://aka.ms/cppwinrt/
-========================================================================
+Currently I am trying to utilise WinRT and DirectX (Direct2D specifically) to create some arbitrary 2D game.
 
-    -   win2D, for text boxes?
+Language being utilised is C++.
 
+Currently referencing this for WinRT and Direct2D: https://docs.microsoft.com/en-us/windows/uwp/composition/composition-native-interop
+Specifically this: https://docs.microsoft.com/en-us/windows/uwp/composition/composition-native-interop#cwinrt-usage-example
 
-    https://docs.microsoft.com/en-us/windows/uwp/get-started/universal-application-platform-guide
-
-    https://docs.microsoft.com/en-gb/previous-versions/mt186421(v=vs.85)
-
-    https://docs.microsoft.com/en-us/uwp/api/windows.applicationmodel.core.coreapplication
-
-    https://docs.microsoft.com/en-us/uwp/api/windows.applicationmodel.core.coreapplicationview
-
-    https://docs.microsoft.com/en-us/uwp/api/windows.applicationmodel.core.coreapplicationview.activated
-
-    https://docs.microsoft.com/en-us/uwp/api/windows.ui.core.corewindow
-
-    https://docs.microsoft.com/en-us/uwp/api/windows.applicationmodel.core.iframeworkview
-
-    https://docs.microsoft.com/en-us/uwp/api/windows.applicationmodel.core.iframeworkviewsource
+Beware most of the Direct2D examples do not utilise WinRT, Direct2D resource: https://docs.microsoft.com/en-us/windows/win32/direct2d/direct2d-portal
+UWP Resource: https://docs.microsoft.com/en-us/windows/uwp/
+WinRT Resource: https://docs.microsoft.com/en-us/windows/uwp/cpp-and-winrt-apis/
+UWP Game Dev Resource: https://docs.microsoft.com/en-us/windows/uwp/gaming/getting-started
