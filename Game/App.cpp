@@ -80,11 +80,13 @@ namespace Game {
 
     void App::SetWindow(winrt::Windows::UI::Core::CoreWindow const& window)
     {
-        winrt::Windows::UI::Composition::Compositor compositor;
-        winrt::Windows::UI::Composition::ContainerVisual root = compositor.CreateContainerVisual();
-        m_target = compositor.CreateTargetForCurrentView();
+        m_compositor = winrt::Windows::UI::Composition::Compositor{};
+        m_target = m_compositor.CreateTargetForCurrentView();
+        winrt::Windows::UI::Composition::ContainerVisual root = m_compositor.CreateContainerVisual();
         m_target.Root(root);
         m_visuals = root.Children();
+
+        Initialize();
 
         window.PointerPressed({ this, &App::OnPointerPressed });
         window.PointerMoved({ this, &App::OnPointerMoved });
@@ -97,7 +99,7 @@ namespace Game {
 
     void App::OnPointerPressed(IInspectable const&, winrt::Windows::UI::Core::PointerEventArgs const& args)
     {
-        //winrt::Windows::Foundation::Numerics::float2 const point = args.CurrentPoint().Position();
+        winrt::Windows::Foundation::Numerics::float2 const point = args.CurrentPoint().Position();
 
         //for (winrt::Windows::UI::Composition::Visual visual : m_visuals)
         //{
@@ -115,15 +117,15 @@ namespace Game {
         //    }
         //}
 
-        //if (m_selected)
-        //{
-        //    m_visuals.Remove(m_selected);
-        //    m_visuals.InsertAtTop(m_selected);
-        //}
-        //else
-        //{
-        //    AddVisual(point);
-        //}
+        if (m_selected)
+        {
+            m_visuals.Remove(m_selected);
+            m_visuals.InsertAtTop(m_selected);
+        }
+        else
+        {
+            AddVisual(point);
+        }
     }
 
     void App::OnPointerMoved(IInspectable const&, winrt::Windows::UI::Core::PointerEventArgs const& args)
@@ -143,8 +145,7 @@ namespace Game {
 
     void App::AddVisual(winrt::Windows::Foundation::Numerics::float2 const point)
     {
-        winrt::Windows::UI::Composition::Compositor compositor = m_visuals.Compositor();
-        winrt::Windows::UI::Composition::SpriteVisual visual = compositor.CreateSpriteVisual();
+        winrt::Windows::UI::Composition::SpriteVisual visual = m_compositor.CreateSpriteVisual();
         static  winrt::Windows::UI::Color colors[] =
         {
             { 0xDC, 0x5B, 0x9B, 0xD5 },
@@ -155,7 +156,7 @@ namespace Game {
 
         static unsigned last = 0;
         unsigned const next = ++last % _countof(colors);
-        visual.Brush(compositor.CreateColorBrush(colors[next]));
+        visual.Brush(m_compositor.CreateColorBrush(colors[next]));
 
         float const BlockSize = 100.0f;
 
